@@ -22,4 +22,14 @@
         android:name="com.bangkit.faniabdullah_bfaa.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/nav_cart"
+        android:name="com.bangkit.faniabdullah_bfaa.CartFragment"
+        android:label="CartFragment"
+        tools:layout="@layout/fragment_cart"/>
+    <activity
+        android:id="@+id/nav_subway"
+        android:name="com.bangkit.faniabdullah_bfaa.SubwayActivity"
+        android:label="SubwayActivity"
+        tools:layout="@layout/activity_subway"/>
 </navigation>
