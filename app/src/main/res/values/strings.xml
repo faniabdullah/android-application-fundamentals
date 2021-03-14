@@ -26,4 +26,8 @@
     <string name="menu_subway">Subway</string>
     <string name="this_is_cart_fragment">This is cart fragment</string>
     <string name="this_is_subway_activity">This is subway activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_profile">Profile</string>
 </resources>
