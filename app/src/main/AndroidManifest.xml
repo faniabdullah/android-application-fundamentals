@@ -9,18 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidApplicationFundamentals">
-        <service
-            android:name=".MyBoundService"
-            android:enabled="true"
-            android:exported="true"></service>
-        <service
-            android:name=".MyJobIntentService"
-            android:exported="false"
-            android:permission="android.permission.BIND_JOB_SERVICE" />
-        <service
-            android:name=".MyService"
-            android:enabled="true"
-            android:exported="true" />
 
         <activity
             android:name=".MainActivity"
