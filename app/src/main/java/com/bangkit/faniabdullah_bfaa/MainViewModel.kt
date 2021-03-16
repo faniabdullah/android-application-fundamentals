@@ -13,12 +13,10 @@ import java.text.DecimalFormat
 class MainViewModel : ViewModel() {
     val listWeathers = MutableLiveData<ArrayList<WeatherItems>>()
 
-    fun getWeather(cities: String): LiveData<ArrayList<WeatherItems>> {
-        return listWeathers
-    }
+
     fun setWeather(cities: String) {
         val listItems = ArrayList<WeatherItems>()
-        val apiKey = "ISI SESUAI API KEY ANDA"
+        val apiKey = "4c47512a1e1c689510ae751023f05916"
         val url = "https://api.openweathermap.org/data/2.5/group?id=${cities}&units=metric&appid=${apiKey}"
         val client = AsyncHttpClient()
         client.get(url, object : AsyncHttpResponseHandler() {
@@ -41,6 +39,7 @@ class MainViewModel : ViewModel() {
                         listItems.add(weatherItems)
                     }
                     listWeathers.postValue(listItems)
+                    Log.d("good", listItems.toString())
                 } catch (e: Exception) {
                     Log.d("Exception", e.message.toString())
                 }
@@ -49,5 +48,9 @@ class MainViewModel : ViewModel() {
                 Log.d("onFailure", error.message.toString())
             }
         })
+    }
+
+    fun getWeathers(): LiveData<ArrayList<WeatherItems>> {
+        return listWeathers
     }
 }

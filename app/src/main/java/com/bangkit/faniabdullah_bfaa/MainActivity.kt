@@ -16,6 +16,8 @@ import java.text.DecimalFormat
 class MainActivity : AppCompatActivity()  {
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: WeatherAdapter
+    private lateinit var mainViewModel: MainViewModel
+
     companion object {
         private const val JOB_ID = 10
     }
@@ -35,48 +37,19 @@ class MainActivity : AppCompatActivity()  {
             val city = binding.editCity.text.toString()
             if (city.isEmpty()) return@setOnClickListener
             showLoading(true)
-            setWeather(city)
+            mainViewModel.setWeather(city)
         }
 
-    }
-
-    private fun setWeather(city: String) {
-        val listItems = ArrayList<WeatherItems>()
-        val apiKey = "4c47512a1e1c689510ae751023f05916"
-
-        val url = "https://api.openweathermap.org/data/2.5/group?id=${city}&units=metric&appid=${apiKey}"
-        val client = AsyncHttpClient()
-        client.get(url, object : AsyncHttpResponseHandler() {
-            override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
-                try {
-                    //parsing json
-                    val result = String(responseBody)
-                    val responseObject = JSONObject(result)
-                    val list = responseObject.getJSONArray("list")
-                    for (i in 0 until list.length()) {
-                        val weather = list.getJSONObject(i)
-                        val weatherItems = WeatherItems()
-                        weatherItems.id = weather.getInt("id")
-                        weatherItems.name = weather.getString("name")
-                        weatherItems.currentWeather = weather.getJSONArray("weather").getJSONObject(0).getString("main")
-                        weatherItems.description = weather.getJSONArray("weather").getJSONObject(0).getString("description")
-                        val tempInKelvin = weather.getJSONObject("main").getDouble("temp")
-                        val tempInCelsius = tempInKelvin - 273
-                        weatherItems.temperature = DecimalFormat("##.##").format(tempInCelsius)
-                        listItems.add(weatherItems)
-                    }
-                    //set data ke adapter
-                    adapter.setData(listItems)
-                    showLoading(false)
-                } catch (e: Exception) {
-                    Log.d("Exception", e.message.toString())
-                }
-            }
-            override fun onFailure(statusCode: Int, headers: Array<Header>, responseBody: ByteArray, error: Throwable) {
-                Log.d("onFailure", error.message.toString())
+        mainViewModel.getWeathers().observe(this, { weatherItems ->
+            if (weatherItems != null) {
+                adapter.setData(weatherItems)
+                showLoading(false)
             }
         })
+
     }
+
+
 
     private fun showLoading(state: Boolean) {
         if (state) {
