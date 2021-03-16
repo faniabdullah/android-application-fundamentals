@@ -1,6 +1,11 @@
 package com.bangkit.faniabdullah_bfaa
 
+import android.app.job.JobInfo
+import android.app.job.JobScheduler
+import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -14,50 +19,54 @@ import org.json.JSONObject
 
 class MainActivity : AppCompatActivity()  {
     private lateinit var binding: ActivityMainBinding
+
     companion object {
-        private val TAG = MainActivity::class.java.simpleName
+        private const val JOB_ID = 10
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        getRandomQuote()
-        binding.btnAllQuotes.setOnClickListener {
-            startActivity(Intent(this@MainActivity, ListQuotesActivity::class.java))
-        }
+
+        binding.btnStart.setOnClickListener { startJob() }
+        binding.btnCancel.setOnClickListener { cancelJob() }
     }
 
-    private fun getRandomQuote() {
-        binding.progressBar.visibility = View.VISIBLE
-        val client = AsyncHttpClient()
-        val url = "https://quote-api.dicoding.dev/random"
-        client.get(url, object : AsyncHttpResponseHandler() {
-            override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
-                binding.progressBar.visibility = View.INVISIBLE
-                val result = String(responseBody)
-                Log.d(TAG, result)
-                try {
-                    val responseObject = JSONObject(result)
-                    val quote = responseObject.getString("en")
-                    val author = responseObject.getString("author")
-                    binding.tvQuote.text = quote
-                    binding.tvAuthor.text = author
-                } catch (e: Exception) {
-                    Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_SHORT).show()
-                    e.printStackTrace()
-                }
+    private fun startJob() {
+        if (isJobRunning(this)) {
+            Toast.makeText(this, "Job Service is already scheduled", Toast.LENGTH_SHORT).show()
+            return
+        }
+        val mServiceComponent = ComponentName(this, GetCurrentWeatherJobService::class.java)
+        val builder = JobInfo.Builder(JOB_ID, mServiceComponent)
+        builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+        builder.setRequiresDeviceIdle(false)
+        builder.setRequiresCharging(false)
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            builder.setPeriodic(900000) //15 menit
+        } else {
+            builder.setPeriodic(180000) //3 menit
+        }
+        val scheduler = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+        scheduler.schedule(builder.build())
+        Toast.makeText(this, "Job Service started", Toast.LENGTH_SHORT).show()
+    }
+    private fun cancelJob() {
+        val scheduler = getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+        scheduler.cancel(JOB_ID)
+        Toast.makeText(this, "Job Service canceled", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun isJobRunning(context: Context): Boolean {
+        var isScheduled = false
+        val scheduler = context.getSystemService(Context.JOB_SCHEDULER_SERVICE) as JobScheduler
+        for (jobInfo in scheduler.allPendingJobs) {
+            if (jobInfo.id == JOB_ID) {
+                isScheduled = true
+                break
             }
-            override fun onFailure(statusCode: Int, headers: Array<Header>, responseBody: ByteArray, error: Throwable) {
-                binding.progressBar.visibility = View.INVISIBLE
-                val errorMessage = when (statusCode) {
-                    401 -> "$statusCode : Bad Request"
-                    403 -> "$statusCode : Forbidden"
-                    404 -> "$statusCode : Not Found"
-                    else -> "$statusCode : ${error.message}"
-                }
-                Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_SHORT).show()
-            }
-        })
+        }
+        return isScheduled
     }
 }
