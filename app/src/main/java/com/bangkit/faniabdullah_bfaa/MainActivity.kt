@@ -1,17 +1,9 @@
 package com.bangkit.faniabdullah_bfaa
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.faniabdullah_bfaa.databinding.ActivityMainBinding
-import com.loopj.android.http.AsyncHttpClient
-import com.loopj.android.http.AsyncHttpResponseHandler
-import cz.msebera.android.httpclient.Header
-import org.json.JSONObject
-import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity()  {
     private lateinit var binding: ActivityMainBinding
