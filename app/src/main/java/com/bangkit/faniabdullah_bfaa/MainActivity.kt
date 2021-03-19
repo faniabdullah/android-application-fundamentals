@@ -15,8 +15,6 @@ import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity()  {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var adapter: WeatherAdapter
-    private lateinit var mainViewModel: MainViewModel
 
     companion object {
         private const val JOB_ID = 10
@@ -26,31 +24,8 @@ class MainActivity : AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        adapter = WeatherAdapter()
-        adapter.notifyDataSetChanged()
-        binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = adapter
-        mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
-
-
-        binding.btnCity.setOnClickListener {
-            val city = binding.editCity.text.toString()
-            if (city.isEmpty()) return@setOnClickListener
-            showLoading(true)
-            mainViewModel.setWeather(city)
-        }
-
-        mainViewModel.getWeathers().observe(this, { weatherItems ->
-            if (weatherItems != null) {
-                adapter.setData(weatherItems)
-                showLoading(false)
-            }
-        })
 
     }
-
-
-
     private fun showLoading(state: Boolean) {
         if (state) {
             binding.progressBar.visibility = View.VISIBLE
