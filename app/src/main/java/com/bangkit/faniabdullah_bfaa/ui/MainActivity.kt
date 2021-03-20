@@ -1,68 +1,69 @@
 package com.bangkit.faniabdullah_bfaa.ui
 
+import android.app.SearchManager
 import android.os.Bundle
-import android.view.KeyEvent
-import android.view.View
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.appcompat.widget.SearchView
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.bangkit.faniabdullah_bfaa.R
 import com.bangkit.faniabdullah_bfaa.databinding.ActivityMainBinding
-import com.bangkit.faniabdullah_bfaa.ui.adapter.UserAdapter
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity()  {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: MainViewModel
-    private lateinit var adapter: UserAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adapter = UserAdapter()
-        adapter.notifyDataSetChanged()
-        viewModel= ViewModelProvider(this,ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
 
-        binding.apply {
-            recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
-            recyclerView.setHasFixedSize(true)
-            recyclerView.adapter = adapter
+        val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
-            btnSearch.setOnClickListener{
-                searchUser()
+        val navController = findNavController(R.id.nav_host_fragment)
+        val appBarConfiguration = AppBarConfiguration(setOf(
+            R.id.navigation_home, R.id.navigation_favorite))
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.option_menu, menu)
+
+        val searchManager = getSystemService(SEARCH_SERVICE) as SearchManager
+        val searchView = menu.findItem(R.id.search).actionView as SearchView
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchView.queryHint = resources.getString(R.string.search_hint)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                Toast.makeText(this@MainActivity, query, Toast.LENGTH_SHORT).show()
+                return true
             }
 
-            usernameTv.setOnKeyListener{ v , keyCode,event ->
-                if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
-                 return@setOnKeyListener true
-                }
-                return@setOnKeyListener false
-            }
-        }
-
-        viewModel.getSearchUser().observe(this,{
-            if (it!= null){
-                adapter.setList(it)
-                showLoading(false)
+            override fun onQueryTextChange(newText: String): Boolean {
+                return false
             }
         })
-
+        return true
     }
 
-    private fun searchUser(){
-        binding.apply {
-            val query = usernameTv.text.toString()
-            if (query.isEmpty()) return
-            showLoading(true)
-            viewModel.setSearchUsers(query)
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.search -> {
+                return true
+            }else -> return true
         }
     }
 
-    private fun showLoading(state: Boolean) {
-        if (state) {
-            binding.progressBar.visibility = View.VISIBLE
-        } else {
-            binding.progressBar.visibility = View.GONE
-        }
-    }
+
 }
