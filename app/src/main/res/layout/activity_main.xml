@@ -22,14 +22,12 @@
         android:orientation="horizontal"
         android:weightSum="1">
         <EditText
-            android:id="@+id/editCity"
+            android:id="@+id/username_tv"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.8"
-            android:hint="@string/insert_city"
-            android:text="@string/id_jakarta_bandung_semarang" />
+            android:layout_weight="0.8"/>
         <Button
-            android:id="@+id/btnCity"
+            android:id="@+id/btnSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.2"
@@ -37,9 +35,12 @@
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
+        android:padding="12dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/inputText"
-        android:layout_marginTop="1dp" />
+        android:layout_marginTop="1dp"
+        tools:listitem="@layout/user_items"
+        />
 
 </RelativeLayout>
