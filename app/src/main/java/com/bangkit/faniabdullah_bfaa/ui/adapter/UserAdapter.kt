@@ -1,8 +1,10 @@
 package com.bangkit.faniabdullah_bfaa.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bangkit.faniabdullah_bfaa.R
 import com.bangkit.faniabdullah_bfaa.databinding.UserItemsBinding
 import com.bangkit.faniabdullah_bfaa.domain.model.User
 import com.bumptech.glide.Glide
@@ -18,15 +20,16 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
         notifyDataSetChanged()
     }
 
-    inner class UserViewHolder(val binding: UserItemsBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val binding = UserItemsBinding.bind(itemView)
         fun bind(user: User) {
             binding.apply {
                 Glide.with(itemView)
                     .load(user.avatar_url)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .centerCrop()
-                    .into(circleImageView)
-                nameUser.text = user.login
+                    .into(includeUserItems.circleImageView)
+                    includeUserItems.nameUser.text = user.login
             }
 
         }
@@ -34,8 +37,8 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
-        val view = UserItemsBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-        return UserViewHolder(view)
+        val mView = LayoutInflater.from(parent.context).inflate(R.layout.user_items, parent, false)
+        return UserViewHolder(mView)
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {

@@ -28,7 +28,7 @@ class SearchFragment : Fragment() {
         homeViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
-        Log.e("load","terload")
+
         return root
     }
 }
