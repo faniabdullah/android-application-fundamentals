@@ -30,6 +30,8 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
                     .centerCrop()
                     .into(includeUserItems.circleImageView)
                     includeUserItems.nameUser.text = user.login
+                    includeUserItems.tvUsername.text = user.type
+
             }
 
         }

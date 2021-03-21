@@ -5,10 +5,7 @@ import android.content.Context.SEARCH_SERVICE
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.faniabdullah_bfaa.R
@@ -17,8 +14,14 @@ import com.bangkit.faniabdullah_bfaa.ui.adapter.UserAdapter
 
 class HomeFragment : Fragment() {
 
-  private lateinit var homeViewModel: HomeViewModel
+  companion object {
+    private const val STATE_SEARCH = "state_search"
+  }
 
+  private var stateSearchView : String ? = null
+  private lateinit var searchView: SearchView
+
+  private lateinit var homeViewModel: HomeViewModel
   private lateinit var adapter: UserAdapter
   private var _binding: FragmentHomeBinding ? = null
   private val binding get() = _binding!!
@@ -35,6 +38,10 @@ class HomeFragment : Fragment() {
   ): View? {
     _binding = FragmentHomeBinding.inflate(inflater, container, false)
     val view = binding.root
+
+    if (savedInstanceState != null) {
+      stateSearchView = savedInstanceState.getString(STATE_SEARCH);
+    }
     return view
   }
 
@@ -61,34 +68,19 @@ class HomeFragment : Fragment() {
 
   }
 
-  private fun showLoading(state: Boolean) {
-    if (state) {
-      binding.progressBar.visibility = View.VISIBLE
-    } else {
-      binding.progressBar.visibility = View.GONE
-    }
-  }
-
-
-  private fun searchUser(valueSearch: String){
-    binding.apply {
-      val query = valueSearch
-      if (query.isEmpty()) return
-      showLoading(true)
-      homeViewModel.setSearchUsers(query)
-    }
-  }
-
-
   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
     inflater.inflate(R.menu.option_menu, menu)
     super.onCreateOptionsMenu(menu, inflater)
 
     val searchManager = getActivity()?.getSystemService(SEARCH_SERVICE) as SearchManager
-    val searchView = menu.findItem(R.id.search).actionView as SearchView
-
+    searchView = menu.findItem(R.id.search).actionView as SearchView
     searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity()?.componentName))
     searchView.queryHint = resources.getString(R.string.search_hint)
+
+    if (stateSearchView != null && !stateSearchView!!.isEmpty() ) {
+      menu.findItem(R.id.search).expandActionView()
+      searchView.setQuery(stateSearchView,false)
+    }
 
     searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
@@ -109,6 +101,33 @@ class HomeFragment : Fragment() {
       R.id.search -> {
         return true
       }else -> return true
+    }
+  }
+
+  override fun onSaveInstanceState(outState: Bundle) {
+
+    stateSearchView = searchView.query.toString().ifEmpty { null }
+    outState.putString(STATE_SEARCH,stateSearchView )
+    super.onSaveInstanceState(outState)
+  }
+
+
+
+  private fun showLoading(state: Boolean) {
+    if (state) {
+      binding.progressBar.visibility = View.VISIBLE
+    } else {
+      binding.progressBar.visibility = View.GONE
+    }
+  }
+
+
+  private fun searchUser(valueSearch: String){
+    binding.apply {
+      val query = valueSearch
+      if (query.isEmpty()) return
+      showLoading(true)
+      homeViewModel.setSearchUsers(query)
     }
   }
 

@@ -31,6 +31,10 @@ class HomeViewModel : ViewModel() {
                 ) {
                     if (response.isSuccessful){
                         listUser.postValue(response.body()?.items)
+                        for (item in response.body()?.items!!) {
+
+                        }
+
                     }
                 }
 
