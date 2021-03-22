@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.faniabdullah_bfaa.R
 import com.bangkit.faniabdullah_bfaa.databinding.FragmentHomeBinding
+import com.bangkit.faniabdullah_bfaa.domain.model.User
 import com.bangkit.faniabdullah_bfaa.ui.adapter.UserAdapter
 
 class HomeFragment : Fragment() {
@@ -49,6 +50,12 @@ class HomeFragment : Fragment() {
     super.onViewCreated(view, savedInstanceState)
     adapter = UserAdapter()
     adapter.notifyDataSetChanged()
+    adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
+      override fun onItemClicked(data: User) {
+
+      }
+
+    })
 
     homeViewModel= ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(HomeViewModel::class.java)
    
@@ -105,7 +112,6 @@ class HomeFragment : Fragment() {
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
-
     stateSearchView = searchView.query.toString().ifEmpty { null }
     outState.putString(STATE_SEARCH,stateSearchView )
     super.onSaveInstanceState(outState)
