@@ -24,5 +24,10 @@
         android:id="@+id/detailUserActivity"
         android:name="com.bangkit.faniabdullah_bfaa.ui.detailuser.DetailUserActivity"
         android:label="activity_detail_user"
-        tools:layout="@layout/activity_detail_user" />
+        tools:layout="@layout/activity_detail_user" >
+        <argument
+            android:name="username"
+            app:argType="string"
+            android:defaultValue="default username" />
+    </activity>
 </navigation>

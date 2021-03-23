@@ -3,10 +3,12 @@ package com.bangkit.faniabdullah_bfaa.ui.home
 import android.app.SearchManager
 import android.content.Context.SEARCH_SERVICE
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.faniabdullah_bfaa.R
 import com.bangkit.faniabdullah_bfaa.databinding.FragmentHomeBinding
@@ -46,25 +48,25 @@ class HomeFragment : Fragment() {
     return view
   }
 
+
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     adapter = UserAdapter()
     adapter.notifyDataSetChanged()
     adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
       override fun onItemClicked(data: User) {
-
+        showDetailUser(view , data)
       }
-
     })
 
-    homeViewModel= ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(HomeViewModel::class.java)
-   
+
     binding.apply {
       rvUser.layoutManager = LinearLayoutManager(activity)
       rvUser.setHasFixedSize(true)
       rvUser.adapter = adapter
-      
     }
+
+    homeViewModel= ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(HomeViewModel::class.java)
 
     homeViewModel.getSearchUser().observe(viewLifecycleOwner, {
       if (it != null) {
@@ -73,6 +75,12 @@ class HomeFragment : Fragment() {
       }
     })
 
+  }
+
+  private fun showDetailUser(view: View , user: User) {
+    val toDetailCategoryFragment = HomeFragmentDirections.actionNavigationHomeToDetailUserActivity()
+    toDetailCategoryFragment.username = user.login
+    view.findNavController().navigate(toDetailCategoryFragment)
   }
 
   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -136,5 +144,7 @@ class HomeFragment : Fragment() {
       homeViewModel.setSearchUsers(query)
     }
   }
+
+
 
 }

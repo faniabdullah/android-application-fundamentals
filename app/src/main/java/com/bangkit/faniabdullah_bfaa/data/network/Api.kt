@@ -1,6 +1,7 @@
 package com.bangkit.faniabdullah_bfaa.data.network
 
 import com.bangkit.faniabdullah_bfaa.domain.model.DetailUserResponse
+import com.bangkit.faniabdullah_bfaa.domain.model.User
 import com.bangkit.faniabdullah_bfaa.domain.model.UserResponse
 import retrofit2.Call
 import retrofit2.http.GET
@@ -25,11 +26,11 @@ interface Api {
     @Headers("Authorization: 6f450176356630e2240ca9a8929a322f628c1bb1")
     fun getFollowingUsers(
         @Path("username") username: String
-    ) : Call<DetailUserResponse>
+    ) : Call<ArrayList<User>>
 
     @GET("users/{username}/followers")
     @Headers("Authorization: 6f450176356630e2240ca9a8929a322f628c1bb1")
     fun getFollowersUsers(
         @Path("username") username: String
-    ) : Call<DetailUserResponse>
+    ) : Call<ArrayList<User>>
 }

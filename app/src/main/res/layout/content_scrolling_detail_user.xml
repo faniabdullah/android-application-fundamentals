@@ -8,7 +8,7 @@
     tools:showIn="@layout/activity_detail_user">
 
     <include
-        android:id="@+id/include_detail"
+        android:id="@+id/includeDetailUser"
         layout="@layout/detail_user_items"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

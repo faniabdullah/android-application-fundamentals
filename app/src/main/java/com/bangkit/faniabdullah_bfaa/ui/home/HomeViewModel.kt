@@ -39,7 +39,7 @@ class HomeViewModel : ViewModel() {
                 }
 
                 override fun onFailure(call: Call<UserResponse>, t: Throwable) {
-                    t.message?.let { Log.e("Failure", it) }
+                    Log.e("Failure", "${t.message}")
                 }
 
             })
