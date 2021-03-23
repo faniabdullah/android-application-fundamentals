@@ -14,6 +14,11 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
     private  val list = ArrayList<User>()
     private lateinit var onItemClickCallback: OnItemClickCallback
+    private lateinit var onItemFavoriteClickCallback: OnItemFavoriteClickCallback
+
+    fun setOnItemFavoriteClickCallback(onItemFavoriteClickCallback: OnItemFavoriteClickCallback) {
+        this.onItemFavoriteClickCallback = onItemFavoriteClickCallback
+    }
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
@@ -29,6 +34,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
         private val binding = UserItemsBinding.bind(itemView)
         fun bind(user: User) {
             binding.detailUserContainer.setOnClickListener{ onItemClickCallback.onItemClicked(user) }
+            binding.includeUserButton.toogleFavorite.setOnClickListener{ onItemFavoriteClickCallback.onItemFavoriteClicked(user)}
             binding.apply {
                 Glide.with(itemView)
                     .load(user.avatar_url)
@@ -37,7 +43,6 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
                     .into(includeUserItems.circleImageView)
                     includeUserItems.nameUser.text = user.login
                     includeUserItems.tvUsername.text = user.type
-
             }
 
         }
@@ -57,8 +62,11 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
         return  list.size
     }
 
-
     interface OnItemClickCallback {
         fun onItemClicked(data: User)
+    }
+
+    interface OnItemFavoriteClickCallback {
+        fun onItemFavoriteClicked(data: User)
     }
 }

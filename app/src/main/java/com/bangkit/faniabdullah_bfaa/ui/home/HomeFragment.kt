@@ -13,6 +13,9 @@ import com.bangkit.faniabdullah_bfaa.R
 import com.bangkit.faniabdullah_bfaa.databinding.FragmentHomeBinding
 import com.bangkit.faniabdullah_bfaa.domain.model.User
 import com.bangkit.faniabdullah_bfaa.ui.adapter.UserAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -58,6 +61,12 @@ class HomeFragment : Fragment() {
       }
     })
 
+    adapter.setOnItemFavoriteClickCallback(object : UserAdapter.OnItemFavoriteClickCallback{
+      override fun onItemFavoriteClicked(data: User) {
+        setToogleFavorite(data)
+      }
+    })
+
 
     binding.apply {
       rvUser.layoutManager = LinearLayoutManager(activity)
@@ -65,7 +74,7 @@ class HomeFragment : Fragment() {
       rvUser.adapter = adapter
     }
 
-    homeViewModel= ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(HomeViewModel::class.java)
+    homeViewModel= ViewModelProvider(this).get(HomeViewModel::class.java)
 
     homeViewModel.getSearchUser().observe(viewLifecycleOwner, {
       if (it != null) {
@@ -76,11 +85,24 @@ class HomeFragment : Fragment() {
 
   }
 
+  private fun setToogleFavorite(data: User) {
+    var isChecked = false
+    CoroutineScope(Dispatchers.IO).launch {
+
+    }
+  }
+
+
+
+
+
+
   private fun showDetailUser(view: View , user: User) {
     val toDetailCategoryFragment = HomeFragmentDirections.actionNavigationHomeToDetailUserActivity()
     toDetailCategoryFragment.username = user.login
     view.findNavController().navigate(toDetailCategoryFragment)
   }
+
 
   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
     inflater.inflate(R.menu.option_menu, menu)
@@ -109,7 +131,6 @@ class HomeFragment : Fragment() {
     })
   }
 
-
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     when (item.itemId) {
       R.id.search -> {
@@ -124,8 +145,6 @@ class HomeFragment : Fragment() {
     super.onSaveInstanceState(outState)
   }
 
-
-
   private fun showLoading(state: Boolean) {
     if (state) {
       binding.progressBar.visibility = View.VISIBLE
@@ -133,7 +152,6 @@ class HomeFragment : Fragment() {
       binding.progressBar.visibility = View.GONE
     }
   }
-
 
   private fun searchUser(valueSearch: String){
     binding.apply {
