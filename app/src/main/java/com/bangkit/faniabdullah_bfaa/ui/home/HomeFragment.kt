@@ -3,7 +3,6 @@ package com.bangkit.faniabdullah_bfaa.ui.home
 import android.app.SearchManager
 import android.content.Context.SEARCH_SERVICE
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
