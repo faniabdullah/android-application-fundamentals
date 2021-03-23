@@ -1,7 +1,6 @@
 package com.bangkit.faniabdullah_bfaa.ui.detailuser.followers
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,11 +47,9 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
         followersViewModel.getFollowers().observe(viewLifecycleOwner, {
             if (it != null) {
                 userAdapter.setList(it)
-                showLoading(true)
+                showLoading(false)
             }
         })
-
-
 
         showLoading(true)
     }
@@ -64,11 +61,8 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
 
     private fun showLoading(state: Boolean) {
         if (state) {
-            Log.e("cek state","state"+state)
             binding.progressBar.visibility = View.VISIBLE
         } else {
-
-            Log.e("cek state","state"+state)
             binding.progressBar.visibility = View.GONE
         }
     }

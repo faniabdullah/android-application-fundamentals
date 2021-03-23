@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.bangkit.faniabdullah_bfaa.data.network.RetrofitClient
 import com.bangkit.faniabdullah_bfaa.domain.model.User
-import com.bangkit.faniabdullah_bfaa.domain.model.UserResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,8 +30,6 @@ class FollowersViewModel : ViewModel() {
                 override fun onFailure(call: Call<ArrayList<User>>, t: Throwable) {
                    Log.e("Failure" , "${t.message}")
                 }
-
-
             })
     }
 

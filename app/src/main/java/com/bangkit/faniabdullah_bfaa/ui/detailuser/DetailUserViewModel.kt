@@ -22,6 +22,8 @@ class DetailUserViewModel : ViewModel() {
                     call: Call<DetailUserResponse>,
                     response: Response<DetailUserResponse>,
                 ) {
+                    Log.e("respon status","hello"+response)
+                    Log.e("respon" , ""+response.body())
                     if (response.isSuccessful){
                         detailUser.postValue(response.body())
                     }
