@@ -1,13 +1,25 @@
 package com.bangkit.faniabdullah_bfaa.ui.favorite
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.bangkit.faniabdullah_bfaa.data.local.FavoriteUser
+import com.bangkit.faniabdullah_bfaa.data.local.FavoriteUserDao
+import com.bangkit.faniabdullah_bfaa.data.local.UserDatabase
+import com.bangkit.faniabdullah_bfaa.domain.model.User
 
-class FavoriteViewModel : ViewModel() {
+class FavoriteViewModel (application: Application) : AndroidViewModel(application) {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is notifications Fragment"
+    private var userDao : FavoriteUserDao? = null
+    private var userDB : UserDatabase?
+
+    init {
+        userDB = UserDatabase.getDatabase(application)
+        userDao = userDB?.favoriteUserDao()
     }
-    val text: LiveData<String> = _text
+
+    fun getFavoriteUser() : LiveData<List<FavoriteUser>>? {
+     return userDao?.getFavoriteUser()
+    }
 }

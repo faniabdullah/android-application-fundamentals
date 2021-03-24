@@ -84,11 +84,14 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
         return listUser
     }
 
-    fun addToFavorite(username : String , id : Int){
+    fun addToFavorite(data : User){
         CoroutineScope(Dispatchers.IO).launch {
             val user = FavoriteUser(
-                 id,
-                 username
+                 data.id,
+                 data.login,
+                 data.avatar_url,
+                 data.type,
+                 data.isfavorite
             )
             userDao?.addToFavorite(user)
         }

@@ -8,5 +8,8 @@ import java.io.Serializable
 data class FavoriteUser(
     @PrimaryKey
     val id : Int,
-    val login : String
+    val login : String,
+    val avatar_url : String,
+    val type: String,
+    var isfavorite : Boolean
 ): Serializable

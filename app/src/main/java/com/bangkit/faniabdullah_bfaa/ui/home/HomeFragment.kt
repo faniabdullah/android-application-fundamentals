@@ -90,7 +90,7 @@ class HomeFragment : Fragment() {
     if (stateToogle){
       homeViewModel.removeFavoriteUser(data.id)
     }else{
-      homeViewModel.addToFavorite(data.login , data.id)
+      homeViewModel.addToFavorite(data)
     }
   }
 

@@ -4,28 +4,100 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.bangkit.faniabdullah_bfaa.R
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bangkit.faniabdullah_bfaa.data.local.FavoriteUser
+import com.bangkit.faniabdullah_bfaa.databinding.FragmentFavoriteBinding
+import com.bangkit.faniabdullah_bfaa.databinding.FragmentFollowersBinding
+import com.bangkit.faniabdullah_bfaa.databinding.FragmentHomeBinding
+import com.bangkit.faniabdullah_bfaa.domain.model.User
+import com.bangkit.faniabdullah_bfaa.ui.adapter.UserAdapter
+import com.bangkit.faniabdullah_bfaa.ui.home.HomeViewModel
 
 class FavoriteFragment : Fragment() {
 
+  private var _binding: FragmentFavoriteBinding? = null
+  private val binding get() = _binding!!
   private lateinit var favoriteViewModel: FavoriteViewModel
+
+  private lateinit var adapter: UserAdapter
 
   override fun onCreateView(
     inflater: LayoutInflater,
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View? {
-    favoriteViewModel =
-            ViewModelProvider(this).get(FavoriteViewModel::class.java)
-    val root = inflater.inflate(R.layout.fragment_favorite, container, false)
-    val textView: TextView = root.findViewById(R.id.text_notifications)
-    favoriteViewModel.text.observe(viewLifecycleOwner, Observer {
-      textView.text = it
+    favoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
+    _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
+    return binding.root
+  }
+
+  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    super.onViewCreated(view, savedInstanceState)
+
+    showLoading(true)
+    adapter = UserAdapter()
+    adapter.notifyDataSetChanged()
+    adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
+      override fun onItemClicked(data: User) {
+        showDetailUser(view , data)
+      }
     })
-    return root
+
+    adapter.setOnItemFavoriteClickCallback(object : UserAdapter.OnItemFavoriteClickCallback{
+      override fun onItemFavoriteClicked(data: User, stateToogle: Boolean) {
+        setToogleFavorite(data , stateToogle)
+      }
+    })
+
+    binding.apply {
+      rvUser.layoutManager = LinearLayoutManager(activity)
+      rvUser.setHasFixedSize(true)
+      rvUser.adapter = adapter
+    }
+
+    favoriteViewModel= ViewModelProvider(this).get(FavoriteViewModel::class.java)
+
+    favoriteViewModel.getFavoriteUser()?.observe(viewLifecycleOwner, {
+      if (it != null) {
+        val list  = mapList(it)
+        adapter.setList(list)
+        showLoading(false)
+      }
+    })
+
+  }
+
+  private fun mapList(users: List<FavoriteUser>): ArrayList<User> {
+   val listUser = ArrayList<User>()
+    for (user in users){
+      val userMapped = User(
+        user.login,
+        user.id,
+        user.avatar_url,
+        user.type,
+        true,
+      )
+      listUser.add(userMapped)
+    }
+    return listUser
+  }
+
+  private fun setToogleFavorite(data: User, stateToogle: Boolean) {
+
+  }
+
+  private fun showDetailUser(view: View, data: User) {
+
+  }
+
+
+  private fun showLoading(state: Boolean) {
+    if (state) {
+      binding.progressBar.visibility = View.VISIBLE
+    } else {
+      binding.progressBar.visibility = View.GONE
+    }
   }
 }
