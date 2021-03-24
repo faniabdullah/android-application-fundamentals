@@ -8,5 +8,6 @@ data class User(
     val login: String,
     val id: Int,
     val avatar_url: String,
-    val type: String
+    val type: String,
+    var isfavorite : Boolean
     ) : Parcelable

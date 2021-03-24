@@ -14,6 +14,7 @@ import com.bangkit.faniabdullah_bfaa.domain.model.UserResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,15 +46,38 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
                     response: Response<UserResponse>,
                 ) {
                     if (response.isSuccessful){
-                        listUser.postValue(response.body()?.items)
+
+                        setFavoriteUser(response.body()?.items)
                     }
                 }
 
                 override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                     Log.e("Failure", "${t.message}")
                 }
-
             })
+    }
+
+    fun setFavoriteUser(data: ArrayList<User>?) {
+        val listUserCheckedFavorite = ArrayList<User>()
+        if (data != null) {
+            CoroutineScope(Dispatchers.IO).launch {
+                for (list in data) {
+                    var stateChecked = false
+                    val count = isFavoriteUser(list.id)
+                    withContext(Dispatchers.Main) {
+                        if (count != null) {
+                            stateChecked = count > 0
+                        }
+                        list.isfavorite = stateChecked
+                        listUserCheckedFavorite.add(list)
+                    }
+                }
+
+                if (listUserCheckedFavorite.size >= data.size) {
+                    listUser.postValue(listUserCheckedFavorite)
+                }
+            }
+        }
     }
 
     fun getSearchUser() : LiveData<ArrayList<User>>{
@@ -72,10 +96,10 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
 
     suspend fun isFavoriteUser(id: Int) = userDao?.isFavoriteUser(id)
 
-    suspend fun removeFavoriteUser(id:Int){
+
+    fun removeFavoriteUser(id:Int){
         CoroutineScope(Dispatchers.IO).launch {
             userDao?.removeUserFavorites(id)
         }
     }
-
 }

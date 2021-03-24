@@ -62,8 +62,8 @@ class HomeFragment : Fragment() {
     })
 
     adapter.setOnItemFavoriteClickCallback(object : UserAdapter.OnItemFavoriteClickCallback{
-      override fun onItemFavoriteClicked(data: User) {
-        setToogleFavorite(data)
+      override fun onItemFavoriteClicked(data: User, stateToogle: Boolean) {
+        setToogleFavorite(data , stateToogle)
       }
     })
 
@@ -81,21 +81,18 @@ class HomeFragment : Fragment() {
         adapter.setList(it)
         showLoading(false)
       }
+
     })
 
   }
 
-  private fun setToogleFavorite(data: User) {
-    var isChecked = false
-    CoroutineScope(Dispatchers.IO).launch {
-
+  private fun setToogleFavorite(data: User , stateToogle : Boolean) {
+    if (stateToogle){
+      homeViewModel.removeFavoriteUser(data.id)
+    }else{
+      homeViewModel.addToFavorite(data.login , data.id)
     }
   }
-
-
-
-
-
 
   private fun showDetailUser(view: View , user: User) {
     val toDetailCategoryFragment = HomeFragmentDirections.actionNavigationHomeToDetailUserActivity()
@@ -139,12 +136,6 @@ class HomeFragment : Fragment() {
     }
   }
 
-  override fun onSaveInstanceState(outState: Bundle) {
-    stateSearchView = searchView.query.toString().ifEmpty { null }
-    outState.putString(STATE_SEARCH,stateSearchView )
-    super.onSaveInstanceState(outState)
-  }
-
   private fun showLoading(state: Boolean) {
     if (state) {
       binding.progressBar.visibility = View.VISIBLE
@@ -154,13 +145,20 @@ class HomeFragment : Fragment() {
   }
 
   private fun searchUser(valueSearch: String){
-    binding.apply {
       val query = valueSearch
       if (query.isEmpty()) return
       showLoading(true)
-      homeViewModel.setSearchUsers(query)
-    }
+        homeViewModel.setSearchUsers(query)
   }
+
+
+
+  override fun onSaveInstanceState(outState: Bundle) {
+    stateSearchView = searchView.query.toString().ifEmpty { null }
+    outState.putString(STATE_SEARCH,stateSearchView )
+    super.onSaveInstanceState(outState)
+  }
+
 
 
 
