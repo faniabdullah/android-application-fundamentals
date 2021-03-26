@@ -91,7 +91,7 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
                  data.login,
                  data.avatar_url,
                  data.type,
-                 data.isfavorite
+                 true
             )
             userDao?.addToFavorite(user)
         }

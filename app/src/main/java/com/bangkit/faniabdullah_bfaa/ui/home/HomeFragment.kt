@@ -3,6 +3,7 @@ package com.bangkit.faniabdullah_bfaa.ui.home
 import android.app.SearchManager
 import android.content.Context.SEARCH_SERVICE
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -75,7 +76,17 @@ class HomeFragment : Fragment() {
 
     homeViewModel.getSearchUser().observe(viewLifecycleOwner, {
       if (it != null) {
-        adapter.setList(it)
+          if (it.size == 0) {
+            binding.rvUser.visibility = View.GONE
+            binding.emptyLayout.pictureMsg.visibility = View.VISIBLE
+            binding.emptyLayout.message.visibility = View.VISIBLE
+            binding.emptyLayout.message.text = "Maaf Data Tidak Dapat Ditemukan".toString()
+          }else{
+            binding.rvUser.visibility = View.VISIBLE
+            binding.emptyLayout.pictureMsg.visibility = View.GONE
+            binding.emptyLayout.message.visibility = View.GONE
+            adapter.setList(it)
+          }
         showLoading(false)
       }
     })

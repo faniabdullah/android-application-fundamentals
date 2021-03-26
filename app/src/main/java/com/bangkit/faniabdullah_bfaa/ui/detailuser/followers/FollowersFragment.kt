@@ -40,7 +40,7 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
 
         userAdapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
             override fun onItemClicked(data: User) {
-                showDetailUser(view , data)
+                showDetailUser(data)
             }
         })
 
@@ -58,15 +58,10 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
                 showLoading(false)
             }
         })
-
-
-
         showLoading(true)
     }
 
-    private fun showDetailUser(view: View, data: User) {
-        val toDetailCategoryFragment = FollowersFragmentDirections.actionFollowersFragmentToDetailUserActivity()
-        toDetailCategoryFragment.username = data.login
+    private fun showDetailUser( data: User) {
         val intentDetail = Intent(context, DetailUserActivity::class.java)
         intentDetail.putExtra(DetailUserActivity.EXTRA_USERNAME_RESULT, data.login)
         startActivity(intentDetail)

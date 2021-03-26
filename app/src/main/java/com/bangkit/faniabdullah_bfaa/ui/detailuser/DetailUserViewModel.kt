@@ -1,18 +1,33 @@
 package com.bangkit.faniabdullah_bfaa.ui.detailuser
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.bangkit.faniabdullah_bfaa.data.local.FavoriteUser
+import com.bangkit.faniabdullah_bfaa.data.local.FavoriteUserDao
+import com.bangkit.faniabdullah_bfaa.data.local.UserDatabase
 import com.bangkit.faniabdullah_bfaa.data.network.RetrofitClient
 import com.bangkit.faniabdullah_bfaa.domain.model.DetailUserResponse
+import com.bangkit.faniabdullah_bfaa.domain.model.User
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailUserViewModel : ViewModel() {
+class DetailUserViewModel (application: Application) : AndroidViewModel(application) {
 
     val detailUser = MutableLiveData<DetailUserResponse>()
+    private var userDao : FavoriteUserDao? = null
+    private var userDB : UserDatabase?
+
+    init {
+        userDB = UserDatabase.getDatabase(application)
+        userDao = userDB?.favoriteUserDao()
+    }
 
     fun setSearchDetailUsers(username : String){
         RetrofitClient.apiInstance
@@ -22,8 +37,6 @@ class DetailUserViewModel : ViewModel() {
                     call: Call<DetailUserResponse>,
                     response: Response<DetailUserResponse>,
                 ) {
-                    Log.e("respon status","hello"+response)
-                    Log.e("respon" , ""+response.body())
                     if (response.isSuccessful){
                         detailUser.postValue(response.body())
                     }
@@ -33,6 +46,29 @@ class DetailUserViewModel : ViewModel() {
                     Log.e("Failure", "${t.message}")
                 }
             })
+    }
+
+
+    fun addToFavorite(data : User){
+        CoroutineScope(Dispatchers.IO).launch {
+            val user = FavoriteUser(
+                data.id,
+                data.login,
+                data.avatar_url,
+                data.type,
+                data.isfavorite
+            )
+            userDao?.addToFavorite(user)
+        }
+    }
+
+    suspend fun isFavoriteUser(id: Int) = userDao?.isFavoriteUser(id)
+
+
+    fun removeFavoriteUser(id:Int){
+        CoroutineScope(Dispatchers.IO).launch {
+            userDao?.removeUserFavorites(id)
+        }
     }
 
     fun getDetailUser() : LiveData<DetailUserResponse> {

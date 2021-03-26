@@ -62,8 +62,12 @@ class FavoriteFragment : Fragment() {
     favoriteViewModel.getFavoriteUser()?.observe(viewLifecycleOwner, {
       if (it != null) {
         val list  = mapList(it)
-        adapter.setList(list)
-        showLoading(false)
+        if (list.size == 0){
+
+        }else{
+          adapter.setList(list)
+          showLoading(false)
+        }
       }
     })
 
