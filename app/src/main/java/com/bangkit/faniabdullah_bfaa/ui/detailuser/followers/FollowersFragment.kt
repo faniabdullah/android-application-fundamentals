@@ -1,5 +1,6 @@
 package com.bangkit.faniabdullah_bfaa.ui.detailuser.followers
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.faniabdullah_bfaa.R
 import com.bangkit.faniabdullah_bfaa.databinding.FragmentFollowersBinding
+import com.bangkit.faniabdullah_bfaa.domain.model.User
 import com.bangkit.faniabdullah_bfaa.ui.adapter.UserAdapter
 import com.bangkit.faniabdullah_bfaa.ui.detailuser.DetailUserActivity
 
@@ -36,6 +38,12 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
         userAdapter = UserAdapter()
         userAdapter.notifyDataSetChanged()
 
+        userAdapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: User) {
+                showDetailUser(view , data)
+            }
+        })
+
         binding.apply {
             rvFollowers.layoutManager = LinearLayoutManager(activity)
             rvFollowers.setHasFixedSize(true)
@@ -51,7 +59,17 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
             }
         })
 
+
+
         showLoading(true)
+    }
+
+    private fun showDetailUser(view: View, data: User) {
+        val toDetailCategoryFragment = FollowersFragmentDirections.actionFollowersFragmentToDetailUserActivity()
+        toDetailCategoryFragment.username = data.login
+        val intentDetail = Intent(context, DetailUserActivity::class.java)
+        intentDetail.putExtra(DetailUserActivity.EXTRA_USERNAME_RESULT, data.login)
+        startActivity(intentDetail)
     }
 
     override fun onDestroyView() {

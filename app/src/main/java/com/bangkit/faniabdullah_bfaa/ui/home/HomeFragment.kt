@@ -13,9 +13,6 @@ import com.bangkit.faniabdullah_bfaa.R
 import com.bangkit.faniabdullah_bfaa.databinding.FragmentHomeBinding
 import com.bangkit.faniabdullah_bfaa.domain.model.User
 import com.bangkit.faniabdullah_bfaa.ui.adapter.UserAdapter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
@@ -81,9 +78,19 @@ class HomeFragment : Fragment() {
         adapter.setList(it)
         showLoading(false)
       }
-
     })
+  }
 
+  fun getRandomString(length: Int) : String {
+    val allowedChars = ('A'..'Z') + ('a'..'z')
+    return (1..length)
+      .map { allowedChars.random() }
+      .joinToString("")
+  }
+
+  private fun randomUser(){
+    val valueRandom = getRandomString(1)
+    searchUser(valueRandom)
   }
 
   private fun setToogleFavorite(data: User , stateToogle : Boolean) {
@@ -107,12 +114,18 @@ class HomeFragment : Fragment() {
 
     val searchManager = getActivity()?.getSystemService(SEARCH_SERVICE) as SearchManager
     searchView = menu.findItem(R.id.search).actionView as SearchView
+
     searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity()?.componentName))
     searchView.queryHint = resources.getString(R.string.search_hint)
 
     if (stateSearchView != null && !stateSearchView!!.isEmpty() ) {
-      menu.findItem(R.id.search).expandActionView()
-      searchView.setQuery(stateSearchView,false)
+      searchView.run {
+        onActionViewExpanded()
+        requestFocusFromTouch()
+        setQuery(stateSearchView,false)
+      }
+    }else{
+      randomUser()
     }
 
     searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -148,18 +161,13 @@ class HomeFragment : Fragment() {
       val query = valueSearch
       if (query.isEmpty()) return
       showLoading(true)
-        homeViewModel.setSearchUsers(query)
+      homeViewModel.setSearchUsers(query)
   }
-
-
 
   override fun onSaveInstanceState(outState: Bundle) {
     stateSearchView = searchView.query.toString().ifEmpty { null }
     outState.putString(STATE_SEARCH,stateSearchView )
     super.onSaveInstanceState(outState)
   }
-
-
-
 
 }
