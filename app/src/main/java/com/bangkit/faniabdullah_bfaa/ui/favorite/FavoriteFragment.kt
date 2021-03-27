@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bangkit.faniabdullah_bfaa.R
 import com.bangkit.faniabdullah_bfaa.data.local.FavoriteUser
 import com.bangkit.faniabdullah_bfaa.databinding.FragmentFavoriteBinding
 import com.bangkit.faniabdullah_bfaa.databinding.FragmentFollowersBinding
@@ -66,7 +67,7 @@ class FavoriteFragment : Fragment() {
         val list  = mapList(it)
         if (list.size == 0){
           binding.emptyLayout.message.visibility = View.VISIBLE
-          binding.emptyLayout.message.text = "OOPS \n Anda belum mempunyai Pengguna Favorite"
+          binding.emptyLayout.message.text = getString(R.string.notification_empyty_favorite)
           binding.emptyLayout.pictureMsg.visibility = View.VISIBLE
           binding.rvUser.visibility = View.GONE
         }else{

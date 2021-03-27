@@ -65,7 +65,7 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
             if (it != null) {
                 if (it.size == 0){
                     binding.emptyLayout.message.visibility = View.VISIBLE
-                    binding.emptyLayout.message.text = "OOPS \n Pengguna ini tidak punya Following"
+                    binding.emptyLayout.message.text = getString(R.string.notification_empyty_followers)
                     binding.emptyLayout.pictureMsg.visibility = View.VISIBLE
                     binding.rvFollowers.visibility = View.GONE
                 }else{

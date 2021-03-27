@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bangkit.faniabdullah_bfaa.R
 import com.bangkit.faniabdullah_bfaa.databinding.FragmentRepositoriesBinding
 import com.bangkit.faniabdullah_bfaa.ui.adapter.RepositoriesAdapter
 import com.bangkit.faniabdullah_bfaa.ui.detailuser.DetailUserActivity
@@ -47,7 +48,7 @@ class RepositoriesFragment : Fragment(){
             if (it != null) {
                 if (it.size == 0){
                     binding.emptyLayout.message.visibility = View.VISIBLE
-                    binding.emptyLayout.message.text = "Pengguna ini tidak punya Repositories"
+                    binding.emptyLayout.message.text = getText(R.string.notification_empyty_repositories)
                     binding.emptyLayout.pictureMsg.visibility = View.VISIBLE
                     binding.rvRepositories.visibility = View.GONE
                 }else{

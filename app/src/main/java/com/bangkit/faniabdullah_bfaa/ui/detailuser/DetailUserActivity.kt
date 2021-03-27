@@ -137,7 +137,7 @@ class DetailUserActivity : AppCompatActivity() {
                     toogleFavorite.visibility = View.GONE
                     emptyLayout.pictureMsg.visibility = View.VISIBLE
                     emptyLayout.message.visibility = View.VISIBLE
-                    emptyLayout.message.text = "OOPS \n Sedang Ada Masalah Di server kami , Atau Periksa Internet Anda :)".toString()
+                    emptyLayout.message.text = getString(R.string.notification_error_server)
                 }
             }
         })

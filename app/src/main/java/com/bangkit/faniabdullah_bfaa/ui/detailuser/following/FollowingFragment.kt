@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bangkit.faniabdullah_bfaa.R
 import com.bangkit.faniabdullah_bfaa.databinding.FragmentFollowingBinding
 import com.bangkit.faniabdullah_bfaa.domain.model.User
 import com.bangkit.faniabdullah_bfaa.ui.adapter.UserAdapter
@@ -63,7 +64,7 @@ class FollowingFragment : Fragment() {
             if (it != null) {
                 if (it.size == 0){
                     binding.emptyLayout.message.visibility = View.VISIBLE
-                    binding.emptyLayout.message.text = "Pengguna ini tidak punya Following"
+                    binding.emptyLayout.message.text = getString(R.string.notification_empyty_following)
                     binding.emptyLayout.pictureMsg.visibility = View.VISIBLE
                     binding.rvFollowing.visibility = View.GONE
                 }else{

@@ -16,7 +16,7 @@
         tools:targetApi="m">
         <activity
             android:name=".ui.detailuser.DetailUserActivity"
-            android:label="@string/title_activity_scrolling"
+            android:label="@string/title_activity_detail"
             android:noHistory="true"
             android:theme="@style/Theme.AndroidApplicationFundamentals.NoActionBar" />
         <activity

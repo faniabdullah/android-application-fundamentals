@@ -12,7 +12,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/fani" />
+        app:srcCompat="@drawable/placeholder_user" />
 
     <TextView
         android:id="@+id/tv_username_detail"
@@ -46,7 +46,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="188dp"
         android:gravity="center_vertical"
-        android:text="@string/_9_followers"
+        android:text="@string/tools_followers"
         app:drawableStartCompat="@drawable/ic_baseline_people_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -61,7 +61,7 @@
         android:layout_marginTop="2dp"
         android:layout_marginBottom="2dp"
         android:gravity="center_vertical"
-        android:text="@string/_13_following"
+        android:text="@string/tools_following"
         app:layout_constraintBottom_toBottomOf="@+id/tv_followers"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.01"

@@ -13,6 +13,7 @@ import com.bangkit.faniabdullah_bfaa.R
 import com.bangkit.faniabdullah_bfaa.databinding.FragmentHomeBinding
 import com.bangkit.faniabdullah_bfaa.domain.model.User
 import com.bangkit.faniabdullah_bfaa.ui.adapter.UserAdapter
+import com.google.android.material.snackbar.Snackbar
 
 class HomeFragment : Fragment() {
 
@@ -78,7 +79,7 @@ class HomeFragment : Fragment() {
         binding.rvUser.visibility = View.GONE
         binding.emptyLayout.pictureMsg.visibility = View.VISIBLE
         binding.emptyLayout.message.visibility = View.VISIBLE
-        binding.emptyLayout.message.text = "OOPS \n Sedang Ada Masalah Di server kami , Atau Periksa Internet Anda :)".toString()
+        binding.emptyLayout.message.text = getString(R.string.notification_error_server)
       }
     })
 
@@ -89,7 +90,7 @@ class HomeFragment : Fragment() {
             binding.rvUser.visibility = View.GONE
             binding.emptyLayout.pictureMsg.visibility = View.VISIBLE
             binding.emptyLayout.message.visibility = View.VISIBLE
-            binding.emptyLayout.message.text = "Maaf Data Tidak Dapat Ditemukan".toString()
+            binding.emptyLayout.message.text = getString(R.string.notification_empyty_search)
           }else{
             binding.rvUser.visibility = View.VISIBLE
             binding.emptyLayout.pictureMsg.visibility = View.GONE
