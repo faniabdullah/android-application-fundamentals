@@ -39,14 +39,4 @@
 
     </activity>
 
-    <fragment
-        android:id="@+id/followersFragment"
-        android:name="com.bangkit.faniabdullah_bfaa.ui.detailuser.followers.FollowersFragment"
-        android:label="FollowersFragment"
-        tools:layout="@layout/fragment_followers"
-        >
-        <action
-            android:id="@+id/action_followersFragment_to_detailUserActivity"
-            app:destination="@id/detailUserActivity" />
-    </fragment>
 </navigation>

@@ -17,6 +17,7 @@
         <activity
             android:name=".ui.detailuser.DetailUserActivity"
             android:label="@string/title_activity_scrolling"
+            android:noHistory="true"
             android:theme="@style/Theme.AndroidApplicationFundamentals.NoActionBar" />
         <activity
             android:name=".ui.MainActivity"

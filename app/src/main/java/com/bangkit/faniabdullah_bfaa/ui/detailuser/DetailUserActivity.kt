@@ -71,6 +71,8 @@ class DetailUserActivity : AppCompatActivity() {
 
             if (it != null) {
                 findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = it.name
+                val followerCount = it.followers.toString()
+                val followingCount = it.following.toString()
                 binding.apply {
                     Glide.with(this@DetailUserActivity)
                         .load(it.avatar_url)
@@ -82,6 +84,8 @@ class DetailUserActivity : AppCompatActivity() {
                 bindingDetailUser.apply {
                     tvUsernameDetail.text = it.login
                     tvLocation.text = it.location
+                    tvFollowers.text = followerCount +" Followers"
+                    tvFollowing.text = "$followingCount Following"
                 }
 
                 CoroutineScope(Dispatchers.IO).launch {

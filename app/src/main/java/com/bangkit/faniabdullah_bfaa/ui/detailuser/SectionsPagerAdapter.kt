@@ -27,6 +27,7 @@ class SectionsPagerAdapter(activity: AppCompatActivity , data : Bundle) : Fragme
             2 -> fragment = RepositoriesFragment()
         }
         fragment?.arguments = this.fragmentBundle
+        
         return fragment as Fragment
     }
 }

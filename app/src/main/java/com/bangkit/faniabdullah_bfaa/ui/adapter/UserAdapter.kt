@@ -42,6 +42,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
                     .load(user.avatar_url)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .centerCrop()
+                    .placeholder(R.drawable.placeholder_user)
                     .into(includeUserItems.circleImageView)
                     includeUserItems.nameUser.text = user.login
                     includeUserItems.tvUsername.text = user.type

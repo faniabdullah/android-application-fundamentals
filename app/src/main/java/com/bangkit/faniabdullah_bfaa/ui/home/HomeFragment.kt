@@ -3,7 +3,6 @@ package com.bangkit.faniabdullah_bfaa.ui.home
 import android.app.SearchManager
 import android.content.Context.SEARCH_SERVICE
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
@@ -99,9 +98,9 @@ class HomeFragment : Fragment() {
       .joinToString("")
   }
 
-  private fun randomUser(){
-    val valueRandom = getRandomString(1)
-    searchUser(valueRandom)
+  private fun favoriteUserByFollower(){
+    val valueQuery= "followers:>20000"
+    searchUser(valueQuery)
   }
 
   private fun setToogleFavorite(data: User , stateToogle : Boolean) {
@@ -121,8 +120,6 @@ class HomeFragment : Fragment() {
 
   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
     inflater.inflate(R.menu.option_menu, menu)
-    super.onCreateOptionsMenu(menu, inflater)
-
     val searchManager = getActivity()?.getSystemService(SEARCH_SERVICE) as SearchManager
     searchView = menu.findItem(R.id.search).actionView as SearchView
 
@@ -136,7 +133,7 @@ class HomeFragment : Fragment() {
         setQuery(stateSearchView,false)
       }
     }else{
-      randomUser()
+      favoriteUserByFollower()
     }
 
     searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -150,6 +147,9 @@ class HomeFragment : Fragment() {
         return false
       }
     })
+
+    super.onCreateOptionsMenu(menu, inflater)
+
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -176,8 +176,10 @@ class HomeFragment : Fragment() {
   }
 
   override fun onSaveInstanceState(outState: Bundle) {
-    stateSearchView = searchView.query.toString().ifEmpty { null }
-    outState.putString(STATE_SEARCH,stateSearchView )
+    if (this::searchView.isInitialized){
+      stateSearchView = searchView.query.toString().ifEmpty { null }
+      outState.putString(STATE_SEARCH,stateSearchView )
+    }
     super.onSaveInstanceState(outState)
   }
 

@@ -86,11 +86,6 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
         startActivity(intentDetail)
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     private fun showLoading(state: Boolean) {
         if (state) {
             binding.progressBar.visibility = View.VISIBLE
@@ -106,4 +101,11 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
             followersViewModel.addToFavorite(data)
         }
     }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 }

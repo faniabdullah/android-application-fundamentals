@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_username_detail" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_followers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -54,7 +54,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_location" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tv_following"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
@@ -62,11 +62,11 @@
         android:layout_marginBottom="2dp"
         android:gravity="center_vertical"
         android:text="@string/_13_following"
-        app:layout_constraintBottom_toBottomOf="@+id/textView"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_followers"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.01"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/textView"
+        app:layout_constraintStart_toEndOf="@+id/tv_followers"
+        app:layout_constraintTop_toTopOf="@+id/tv_followers"
         app:layout_constraintVertical_bias="0.35000002" />
 
     <ToggleButton

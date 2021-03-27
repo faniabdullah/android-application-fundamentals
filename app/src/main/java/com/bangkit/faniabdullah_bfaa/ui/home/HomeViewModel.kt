@@ -29,12 +29,6 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
         userDao = userDB?.favoriteUserDao()
     }
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
-    }
-    val text: LiveData<String> = _text
-
-
     val listUser = MutableLiveData<ArrayList<User>>()
 
     fun setSearchUsers(query : String){
