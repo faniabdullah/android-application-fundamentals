@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.faniabdullah_bfaa.data.local.FavoriteUser
 import com.bangkit.faniabdullah_bfaa.databinding.FragmentFavoriteBinding
@@ -13,6 +14,7 @@ import com.bangkit.faniabdullah_bfaa.databinding.FragmentFollowersBinding
 import com.bangkit.faniabdullah_bfaa.databinding.FragmentHomeBinding
 import com.bangkit.faniabdullah_bfaa.domain.model.User
 import com.bangkit.faniabdullah_bfaa.ui.adapter.UserAdapter
+import com.bangkit.faniabdullah_bfaa.ui.home.HomeFragmentDirections
 import com.bangkit.faniabdullah_bfaa.ui.home.HomeViewModel
 
 class FavoriteFragment : Fragment() {
@@ -63,11 +65,17 @@ class FavoriteFragment : Fragment() {
       if (it != null) {
         val list  = mapList(it)
         if (list.size == 0){
-
+          binding.emptyLayout.message.visibility = View.VISIBLE
+          binding.emptyLayout.message.text = "OOPS \n Anda belum mempunyai Pengguna Favorite"
+          binding.emptyLayout.pictureMsg.visibility = View.VISIBLE
+          binding.rvUser.visibility = View.GONE
         }else{
+          binding.emptyLayout.message.visibility = View.GONE
+          binding.emptyLayout.pictureMsg.visibility = View.GONE
+          binding.rvUser.visibility = View.VISIBLE
           adapter.setList(list)
-          showLoading(false)
         }
+        showLoading(false)
       }
     })
 
@@ -89,13 +97,18 @@ class FavoriteFragment : Fragment() {
   }
 
   private fun setToogleFavorite(data: User, stateToogle: Boolean) {
-
+    if (stateToogle){
+      favoriteViewModel.removeFavoriteUser(data.id)
+    }else{
+      favoriteViewModel.addToFavorite(data)
+    }
   }
 
   private fun showDetailUser(view: View, data: User) {
-
+    val toDetailCategoryFragment = FavoriteFragmentDirections.actionNavigationFavoriteToDetailUserActivity()
+    toDetailCategoryFragment.username = data.login
+    view.findNavController().navigate(toDetailCategoryFragment)
   }
-
 
   private fun showLoading(state: Boolean) {
     if (state) {
@@ -104,4 +117,6 @@ class FavoriteFragment : Fragment() {
       binding.progressBar.visibility = View.GONE
     }
   }
+
+
 }

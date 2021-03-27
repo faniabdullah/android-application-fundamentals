@@ -13,6 +13,7 @@ import com.bangkit.faniabdullah_bfaa.databinding.FragmentFollowersBinding
 import com.bangkit.faniabdullah_bfaa.domain.model.User
 import com.bangkit.faniabdullah_bfaa.ui.adapter.UserAdapter
 import com.bangkit.faniabdullah_bfaa.ui.detailuser.DetailUserActivity
+import com.bangkit.faniabdullah_bfaa.ui.home.HomeViewModel
 
 class FollowersFragment : Fragment(R.layout.fragment_followers) {
     private var _binding: FragmentFollowersBinding? = null
@@ -44,17 +45,35 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
             }
         })
 
+        userAdapter.setOnItemFavoriteClickCallback(object : UserAdapter.OnItemFavoriteClickCallback{
+            override fun onItemFavoriteClicked(data: User, stateToogle: Boolean) {
+                setToogleFavorite(data , stateToogle)
+            }
+
+        })
+
         binding.apply {
             rvFollowers.layoutManager = LinearLayoutManager(activity)
             rvFollowers.setHasFixedSize(true)
             rvFollowers.adapter = userAdapter
         }
 
-        followersViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(FollowersViewModel::class.java)
+        followersViewModel = ViewModelProvider(this).get(FollowersViewModel::class.java)
         followersViewModel.setListFollowers(username)
         followersViewModel.getFollowers().observe(viewLifecycleOwner, {
+
             if (it != null) {
-                userAdapter.setList(it)
+                if (it.size == 0){
+                    binding.emptyLayout.message.visibility = View.VISIBLE
+                    binding.emptyLayout.message.text = "OOPS \n Pengguna ini tidak punya Following"
+                    binding.emptyLayout.pictureMsg.visibility = View.VISIBLE
+                    binding.rvFollowers.visibility = View.GONE
+                }else{
+                    binding.emptyLayout.message.visibility = View.GONE
+                    binding.emptyLayout.pictureMsg.visibility = View.GONE
+                    binding.rvFollowers.visibility = View.VISIBLE
+                    userAdapter.setList(it)
+                }
                 showLoading(false)
             }
         })
@@ -77,6 +96,14 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
             binding.progressBar.visibility = View.VISIBLE
         } else {
             binding.progressBar.visibility = View.GONE
+        }
+    }
+
+    private fun setToogleFavorite(data: User , stateToogle : Boolean) {
+        if (stateToogle){
+            followersViewModel.removeFavoriteUser(data.id)
+        }else{
+            followersViewModel.addToFavorite(data)
         }
     }
 }

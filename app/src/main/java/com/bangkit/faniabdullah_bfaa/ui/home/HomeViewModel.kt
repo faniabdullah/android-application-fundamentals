@@ -46,7 +46,6 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
                     response: Response<UserResponse>,
                 ) {
                     if (response.isSuccessful){
-
                         setFavoriteUser(response.body()?.items)
                     }
                 }
