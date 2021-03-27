@@ -1,6 +1,7 @@
 package com.bangkit.faniabdullah_bfaa.ui.detailuser
 
 import android.os.Bundle
+import android.view.View
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -122,6 +123,23 @@ class DetailUserActivity : AppCompatActivity() {
                 }
             }
 
+        })
+
+        detailUserViewModel.checkStatusServer().observe(this, {
+            if (it != true){
+                bindingDetailUser.apply {
+                    tvUsernameDetail.visibility = View.GONE
+                    tvLocation.visibility = View.GONE
+                    tvFollowers.visibility = View.GONE
+                    tvFollowing.visibility = View.GONE
+                    viewPager.visibility = View.GONE
+                    tabLayout.visibility =View.GONE
+                    toogleFavorite.visibility = View.GONE
+                    emptyLayout.pictureMsg.visibility = View.VISIBLE
+                    emptyLayout.message.visibility = View.VISIBLE
+                    emptyLayout.message.text = "OOPS \n Sedang Ada Masalah Di server kami , Atau Periksa Internet Anda :)".toString()
+                }
+            }
         })
     }
 

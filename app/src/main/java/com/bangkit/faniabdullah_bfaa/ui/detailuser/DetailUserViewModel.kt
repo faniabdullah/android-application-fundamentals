@@ -21,6 +21,7 @@ import retrofit2.Response
 class DetailUserViewModel (application: Application) : AndroidViewModel(application) {
 
     val detailUser = MutableLiveData<DetailUserResponse>()
+    val isSuccess = MutableLiveData<Boolean>()
     private var userDao : FavoriteUserDao? = null
     private var userDB : UserDatabase?
 
@@ -28,6 +29,7 @@ class DetailUserViewModel (application: Application) : AndroidViewModel(applicat
         userDB = UserDatabase.getDatabase(application)
         userDao = userDB?.favoriteUserDao()
     }
+
 
     fun setSearchDetailUsers(username : String){
         RetrofitClient.apiInstance
@@ -39,11 +41,13 @@ class DetailUserViewModel (application: Application) : AndroidViewModel(applicat
                 ) {
                     if (response.isSuccessful){
                         detailUser.postValue(response.body())
+                        isSuccess.postValue(true)
                     }
                 }
 
                 override fun onFailure(call: Call<DetailUserResponse>, t: Throwable) {
                     Log.e("Failure", "${t.message}")
+                    isSuccess.postValue(false)
                 }
             })
     }
@@ -73,5 +77,9 @@ class DetailUserViewModel (application: Application) : AndroidViewModel(applicat
 
     fun getDetailUser() : LiveData<DetailUserResponse> {
         return detailUser
+    }
+
+    fun checkStatusServer(): MutableLiveData<Boolean> {
+        return isSuccess
     }
 }

@@ -73,6 +73,16 @@ class HomeFragment : Fragment() {
 
     homeViewModel= ViewModelProvider(this).get(HomeViewModel::class.java)
 
+    homeViewModel.checkStatusServer().observe(viewLifecycleOwner, {
+      if (it != true){
+        binding.rvUser.visibility = View.GONE
+        binding.emptyLayout.pictureMsg.visibility = View.VISIBLE
+        binding.emptyLayout.message.visibility = View.VISIBLE
+        binding.emptyLayout.message.text = "OOPS \n Sedang Ada Masalah Di server kami , Atau Periksa Internet Anda :)".toString()
+      }
+    })
+
+
     homeViewModel.getSearchUser().observe(viewLifecycleOwner, {
       if (it != null) {
           if (it.size == 0) {

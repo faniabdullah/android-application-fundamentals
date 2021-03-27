@@ -30,6 +30,7 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
     }
 
     val listUser = MutableLiveData<ArrayList<User>>()
+    val isSuccess = MutableLiveData<Boolean>()
 
     fun setSearchUsers(query : String){
         RetrofitClient.apiInstance
@@ -40,12 +41,14 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
                     response: Response<UserResponse>,
                 ) {
                     if (response.isSuccessful){
+                        isSuccess.postValue(true)
                         setFavoriteUser(response.body()?.items)
                     }
                 }
 
                 override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                     Log.e("Failure", "${t.message}")
+                    isSuccess.postValue(false)
                 }
             })
     }
@@ -97,5 +100,9 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
         CoroutineScope(Dispatchers.IO).launch {
             userDao?.removeUserFavorites(id)
         }
+    }
+
+    fun checkStatusServer(): MutableLiveData<Boolean> {
+        return isSuccess
     }
 }
