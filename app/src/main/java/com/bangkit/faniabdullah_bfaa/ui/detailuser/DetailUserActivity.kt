@@ -11,7 +11,6 @@ import com.bangkit.faniabdullah_bfaa.R
 import com.bangkit.faniabdullah_bfaa.databinding.ActivityDetailUserBinding
 import com.bangkit.faniabdullah_bfaa.databinding.DetailUserItemsBinding
 import com.bangkit.faniabdullah_bfaa.domain.model.User
-import com.bangkit.faniabdullah_bfaa.ui.home.HomeViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.appbar.CollapsingToolbarLayout

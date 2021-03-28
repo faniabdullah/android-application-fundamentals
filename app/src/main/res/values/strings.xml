@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">digithub</string>
-    <string name="text_for_logo">di ithub</string>
+    <string name="text_for_logo">di\u0020\u0020ithub</string>
     <string name="text_for_logo_words_g">g</string>
     <string name="search">Search</string>
     <string name="search_hint">Search user .. </string>

@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.bangkit.faniabdullah_bfaa.data.local.FavoriteUser
 import com.bangkit.faniabdullah_bfaa.data.local.FavoriteUserDao
 import com.bangkit.faniabdullah_bfaa.data.local.UserDatabase

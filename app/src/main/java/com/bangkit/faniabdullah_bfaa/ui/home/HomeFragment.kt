@@ -5,7 +5,6 @@ import android.content.Context.SEARCH_SERVICE
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.*
 import android.widget.ToggleButton
 import androidx.appcompat.widget.SearchView
@@ -105,13 +104,6 @@ class HomeFragment : Fragment() {
         showLoading(false)
       }
     })
-  }
-
-  fun getRandomString(length: Int) : String {
-    val allowedChars = ('A'..'Z') + ('a'..'z')
-    return (1..length)
-      .map { allowedChars.random() }
-      .joinToString("")
   }
 
   private fun favoriteUserByFollower(){
