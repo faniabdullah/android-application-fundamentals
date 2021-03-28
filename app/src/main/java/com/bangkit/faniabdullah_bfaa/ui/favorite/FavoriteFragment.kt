@@ -37,7 +37,6 @@ class FavoriteFragment : Fragment() {
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
 
-    showLoading(true)
     adapter = UserAdapter()
     adapter.notifyDataSetChanged()
     adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
@@ -61,6 +60,7 @@ class FavoriteFragment : Fragment() {
 
     favoriteViewModel= ViewModelProvider(this).get(FavoriteViewModel::class.java)
 
+    showLoading(true)
     favoriteViewModel.getFavoriteUser()?.observe(viewLifecycleOwner, {
       if (it != null) {
         val list  = mapList(it)

@@ -12,7 +12,13 @@
 
     <string name="followers">Followers</string>
     <string name="following">Following</string>
+
     <string name="repositories">Repos</string>
+
+
+    <string name="followers_users">%d Followers</string>
+    <string name="following_users">%d Following</string>
+
 
     <string name="change_language_settings">Ubah Pengaturan Bahasa</string>
     <string name="notification_empyty_favorite">OOPS \n Anda belum mempunyai Pengguna Favorite</string>
