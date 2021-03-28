@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">digithub</string>
+    <string name="text_for_logo">di ithub</string>
+    <string name="text_for_logo_words_g">g</string>
     <string name="search">Search</string>
     <string name="search_hint">Search user .. </string>
     <string name="title_home">Home</string>
@@ -26,5 +28,6 @@
     <string name="notification_error_server">Oops… \n There is a something problem , please try again later and Don\'t forget to check your internet again :)</string>
     <string name="notification_add_to_favorite">Success added to favorites</string>
     <string name="notification_delete_from_favorite">Success removed from favorites</string>
+
 
 </resources>

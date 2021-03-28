@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">digithub</string>
+    <string name="text_for_logo">di ithub</string>
+    <string name="text_for_logo_words_g">g</string>
     <string name="search">Cari</string>
     <string name="search_hint">Cari user .. </string>
     <string name="title_activity_main_activiy">Main Activity</string>
