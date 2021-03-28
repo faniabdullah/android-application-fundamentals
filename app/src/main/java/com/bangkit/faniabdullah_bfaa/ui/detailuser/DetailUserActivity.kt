@@ -13,7 +13,6 @@ import com.bangkit.faniabdullah_bfaa.databinding.DetailUserItemsBinding
 import com.bangkit.faniabdullah_bfaa.domain.model.User
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -21,6 +20,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlin.text.isNullOrEmpty as kotlinTextIsNullOrEmpty
 
 
 class DetailUserActivity : AppCompatActivity() {
@@ -71,7 +71,7 @@ class DetailUserActivity : AppCompatActivity() {
         detailUserViewModel.getDetailUser().observe(this, {
 
             if (it != null) {
-                findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = it.name
+                    binding.toolbarLayout.title = if (it.name.kotlinTextIsNullOrEmpty()) it.login else it.name
                 val followerCount = it.followers
                 val followingCount = it.following
                 binding.apply {
