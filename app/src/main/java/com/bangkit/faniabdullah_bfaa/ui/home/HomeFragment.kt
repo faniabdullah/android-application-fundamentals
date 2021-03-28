@@ -3,7 +3,9 @@ package com.bangkit.faniabdullah_bfaa.ui.home
 import android.app.SearchManager
 import android.content.Context.SEARCH_SERVICE
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.widget.ToggleButton
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -26,6 +28,7 @@ class HomeFragment : Fragment() {
 
   private lateinit var homeViewModel: HomeViewModel
   private lateinit var adapter: UserAdapter
+  private var stateToogleFavorite: Boolean = false
   private var _binding: FragmentHomeBinding ? = null
   private val binding get() = _binding!!
 
@@ -60,7 +63,7 @@ class HomeFragment : Fragment() {
     })
 
     adapter.setOnItemFavoriteClickCallback(object : UserAdapter.OnItemFavoriteClickCallback{
-      override fun onItemFavoriteClicked(data: User, stateToogle: Boolean) {
+      override fun onItemFavoriteClicked(data: User, stateToogle: ToggleButton) {
         setToogleFavorite(data , stateToogle)
       }
     })
@@ -114,11 +117,13 @@ class HomeFragment : Fragment() {
     searchUser(valueQuery)
   }
 
-  private fun setToogleFavorite(data: User , stateToogle : Boolean) {
-    if (stateToogle){
+  private fun setToogleFavorite(data: User, stateToogle: ToggleButton) {
+    if (!stateToogle.isChecked){
       homeViewModel.removeFavoriteUser(data.id)
+      Snackbar.make(binding.root,R.string.notification_delete_from_favorite,Snackbar.LENGTH_LONG).show()
     }else{
       homeViewModel.addToFavorite(data)
+      Snackbar.make(binding.root,R.string.notification_add_to_favorite,Snackbar.LENGTH_LONG).show()
     }
   }
 

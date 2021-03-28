@@ -3,6 +3,7 @@ package com.bangkit.faniabdullah_bfaa.ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
 import com.bangkit.faniabdullah_bfaa.R
 import com.bangkit.faniabdullah_bfaa.databinding.UserItemsBinding
@@ -35,8 +36,8 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
         fun bind(user: User) {
             binding.detailUserContainer.setOnClickListener{ onItemClickCallback.onItemClicked(user) }
             binding.includeUserButton.toogleFavorite.isChecked = user.isfavorite
-            var stateToogle = binding.includeUserButton.toogleFavorite.isChecked
-            binding.includeUserButton.toogleFavorite.setOnClickListener{ onItemFavoriteClickCallback.onItemFavoriteClicked(user,stateToogle)}
+            val Toogle = binding.includeUserButton.toogleFavorite
+            binding.includeUserButton.toogleFavorite.setOnClickListener{ onItemFavoriteClickCallback.onItemFavoriteClicked(user,Toogle)}
             binding.apply {
                 Glide.with(itemView)
                     .load(user.avatar_url)
@@ -69,6 +70,6 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     }
 
     interface OnItemFavoriteClickCallback {
-        fun onItemFavoriteClicked(data: User, stateToogle: Boolean)
+        fun onItemFavoriteClicked(data: User, stateToogle: ToggleButton)
     }
 }

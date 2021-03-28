@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ToggleButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +14,7 @@ import com.bangkit.faniabdullah_bfaa.databinding.FragmentFollowingBinding
 import com.bangkit.faniabdullah_bfaa.domain.model.User
 import com.bangkit.faniabdullah_bfaa.ui.adapter.UserAdapter
 import com.bangkit.faniabdullah_bfaa.ui.detailuser.DetailUserActivity
+import com.google.android.material.snackbar.Snackbar
 
 class FollowingFragment : Fragment() {
     private var _binding : FragmentFollowingBinding? = null
@@ -51,10 +53,10 @@ class FollowingFragment : Fragment() {
         })
 
         userAdapter.setOnItemFavoriteClickCallback(object : UserAdapter.OnItemFavoriteClickCallback{
-            override fun onItemFavoriteClicked(data: User, stateToogle: Boolean) {
-             setToogleFavorite(data , stateToogle)
-            }
 
+            override fun onItemFavoriteClicked(data: User, stateToogle: ToggleButton) {
+                setToogleFavorite(data , stateToogle)
+            }
         })
 
 
@@ -81,11 +83,13 @@ class FollowingFragment : Fragment() {
         showLoading(true)
     }
 
-    private fun setToogleFavorite(data: User , stateToogle : Boolean) {
-        if (stateToogle){
+    private fun setToogleFavorite(data: User, stateToogle: ToggleButton) {
+        if (!stateToogle.isChecked){
             followingViewModel.removeFavoriteUser(data.id)
+            Snackbar.make(binding.root,R.string.notification_delete_from_favorite, Snackbar.LENGTH_LONG).show()
         }else{
             followingViewModel.addToFavorite(data)
+            Snackbar.make(binding.root,R.string.notification_add_to_favorite, Snackbar.LENGTH_LONG).show()
         }
     }
 

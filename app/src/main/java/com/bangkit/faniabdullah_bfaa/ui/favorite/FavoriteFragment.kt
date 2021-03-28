@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ToggleButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -11,12 +12,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bangkit.faniabdullah_bfaa.R
 import com.bangkit.faniabdullah_bfaa.data.local.FavoriteUser
 import com.bangkit.faniabdullah_bfaa.databinding.FragmentFavoriteBinding
-import com.bangkit.faniabdullah_bfaa.databinding.FragmentFollowersBinding
-import com.bangkit.faniabdullah_bfaa.databinding.FragmentHomeBinding
 import com.bangkit.faniabdullah_bfaa.domain.model.User
 import com.bangkit.faniabdullah_bfaa.ui.adapter.UserAdapter
-import com.bangkit.faniabdullah_bfaa.ui.home.HomeFragmentDirections
-import com.bangkit.faniabdullah_bfaa.ui.home.HomeViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class FavoriteFragment : Fragment() {
 
@@ -49,7 +47,8 @@ class FavoriteFragment : Fragment() {
     })
 
     adapter.setOnItemFavoriteClickCallback(object : UserAdapter.OnItemFavoriteClickCallback{
-      override fun onItemFavoriteClicked(data: User, stateToogle: Boolean) {
+
+      override fun onItemFavoriteClicked(data: User, stateToogle: ToggleButton) {
         setToogleFavorite(data , stateToogle)
       }
     })
@@ -97,11 +96,13 @@ class FavoriteFragment : Fragment() {
     return listUser
   }
 
-  private fun setToogleFavorite(data: User, stateToogle: Boolean) {
-    if (stateToogle){
+  private fun setToogleFavorite(data: User, stateToogle: ToggleButton) {
+    if (!stateToogle.isChecked){
       favoriteViewModel.removeFavoriteUser(data.id)
+      Snackbar.make(binding.root,R.string.notification_delete_from_favorite, Snackbar.LENGTH_LONG).show()
     }else{
-      favoriteViewModel.addToFavorite(data)
+      favoriteViewModel.removeFavoriteUser(data.id)
+      Snackbar.make(binding.root,R.string.notification_add_to_favorite, Snackbar.LENGTH_LONG).show()
     }
   }
 
