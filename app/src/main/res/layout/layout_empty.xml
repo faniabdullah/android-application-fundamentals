@@ -27,7 +27,6 @@
         android:visibility="gone"
         android:layout_marginTop="32dp"
         android:lineSpacingExtra="8dp"
-        tools:text="OOPS \n Anda Belum memiliki pengguna favorit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/picture_msg" />

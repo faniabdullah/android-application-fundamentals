@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">digithub</string>
+    <string name="search">Cari</string>
+    <string name="search_hint">Cari user .. </string>
+    <string name="title_activity_main_activiy">Main Activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="menu_setting">Pengaturan</string>
+    <string name="title_activity_detail">Detail User</string>
+    <string name="action_settings">Pengaturan</string>
+
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="repositories">Repos</string>
+
+    <string name="change_language_settings">Ubah Pengaturan Bahasa</string>
+    <string name="notification_empyty_favorite">OOPS \n Anda belum mempunyai Pengguna Favorite</string>
+    <string name="notification_empyty_search">OOPS \n Kami tidak dapat menemukan Data yang Anda Cari</string>
+    <string name="notification_empyty_repositories">Pengguna ini belum memiliki Repositories </string>
+    <string name="notification_empyty_followers">Pengguna ini belum punya Followers</string>
+    <string name="notification_empyty_following">Pengguna ini tidak punya siapapun yang di ikuti</string>
+    <string name="notification_error_server">OOPS \n Sedang Ada gangguan di server , Coba lagi nanti dan Jangan lupa Periksa Kembali Internet Anda :)</string>
+    <string name="notification_add_to_favorite">Berhasil Menambahkan Ke Favorite</string>
+    <string name="notification_delete_from_favorite">Berhasil Menghapus dari Favorite</string>
+
+</resources>

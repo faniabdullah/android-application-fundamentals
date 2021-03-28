@@ -2,7 +2,9 @@ package com.bangkit.faniabdullah_bfaa.ui.home
 
 import android.app.SearchManager
 import android.content.Context.SEARCH_SERVICE
+import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.*
 import android.widget.ToggleButton
@@ -169,11 +171,11 @@ class HomeFragment : Fragment() {
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    when (item.itemId) {
-      R.id.search -> {
-        return true
-      }else -> return true
+    if (item.itemId == R.id.action_menu1) {
+      val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+      startActivity(mIntent)
     }
+    return super.onOptionsItemSelected(item)
   }
 
   private fun showLoading(state: Boolean) {

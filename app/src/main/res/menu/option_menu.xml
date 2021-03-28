@@ -7,10 +7,14 @@
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="collapseActionView|ifRoom" />
-    <group android:menuCategory="container">
+
         <item android:id="@+id/menu1"
             android:title="@string/menu_setting"
             android:icon = "@drawable/ic_baseline_settings_24"
-            app:showAsAction="always" />
-    </group>
+            app:showAsAction="always" >
+            <menu>
+                <item android:id="@+id/action_menu1"
+                    android:title="@string/change_language_settings" />
+            </menu>
+        </item>
 </menu>
