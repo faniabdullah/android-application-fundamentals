@@ -15,6 +15,7 @@ import com.bangkit.faniabdullah_bfaa.ui.home.HomeViewModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.CoroutineScope
@@ -115,9 +116,12 @@ class DetailUserActivity : AppCompatActivity() {
                 bindingDetailUser.toogleFavorite.setOnClickListener {
                     if (stateFavorite){
                         detailUserViewModel.removeFavoriteUser(dataUser.id)
+                        Snackbar.make(binding.root,R.string.notification_delete_from_favorite,
+                            Snackbar.LENGTH_LONG).show()
                         stateFavorite = false
                     }else{
                         detailUserViewModel.addToFavorite(dataUser)
+                        Snackbar.make(binding.root,R.string.notification_add_to_favorite,Snackbar.LENGTH_LONG).show()
                         stateFavorite = true
                     }
                 }
