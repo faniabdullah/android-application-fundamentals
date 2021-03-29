@@ -3,12 +3,13 @@ package com.bangkit.faniabdullah_bfaa.data.local
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
 interface FavoriteUserDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addToFavorite(favoriteUserDao: FavoriteUser)
 
     @Query("SELECT * FROM favorite_user")
