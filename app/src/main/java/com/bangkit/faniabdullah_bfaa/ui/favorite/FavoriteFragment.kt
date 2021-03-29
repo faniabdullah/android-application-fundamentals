@@ -107,9 +107,9 @@ class FavoriteFragment : Fragment() {
   }
 
   private fun showDetailUser(view: View, data: User) {
-    val toDetailCategoryFragment = FavoriteFragmentDirections.actionNavigationFavoriteToDetailUserActivity()
-    toDetailCategoryFragment.username = data.login
-    view.findNavController().navigate(toDetailCategoryFragment)
+    val toDetailUserActivity = FavoriteFragmentDirections.actionNavigationFavoriteToDetailUserActivity()
+    toDetailUserActivity.username = data.login
+    view.findNavController().navigate(toDetailUserActivity)
   }
 
   private fun showLoading(state: Boolean) {

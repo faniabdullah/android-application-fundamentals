@@ -122,9 +122,9 @@ class HomeFragment : Fragment() {
   }
 
   private fun showDetailUser(view: View , user: User) {
-    val toDetailCategoryFragment = HomeFragmentDirections.actionNavigationHomeToDetailUserActivity()
-    toDetailCategoryFragment.username = user.login
-    view.findNavController().navigate(toDetailCategoryFragment)
+    val toDetailUserActivity = HomeFragmentDirections.actionNavigationHomeToDetailUserActivity()
+    toDetailUserActivity.username = user.login
+    view.findNavController().navigate(toDetailUserActivity)
   }
 
 

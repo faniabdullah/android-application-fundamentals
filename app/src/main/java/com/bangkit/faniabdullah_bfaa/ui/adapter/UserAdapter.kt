@@ -36,8 +36,8 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
         fun bind(user: User) {
             binding.detailUserContainer.setOnClickListener{ onItemClickCallback.onItemClicked(user) }
             binding.includeUserButton.toogleFavorite.isChecked = user.isfavorite
-            val Toogle = binding.includeUserButton.toogleFavorite
-            binding.includeUserButton.toogleFavorite.setOnClickListener{ onItemFavoriteClickCallback.onItemFavoriteClicked(user,Toogle)}
+            val toogleButton = binding.includeUserButton.toogleFavorite
+            binding.includeUserButton.toogleFavorite.setOnClickListener{ onItemFavoriteClickCallback.onItemFavoriteClicked(user,toogleButton)}
             binding.apply {
                 Glide.with(itemView)
                     .load(user.avatar_url)
