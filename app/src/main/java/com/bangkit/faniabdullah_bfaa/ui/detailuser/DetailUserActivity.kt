@@ -48,6 +48,7 @@ class DetailUserActivity : AppCompatActivity() {
         bindingDetailUser = binding.contentDetailUser.includeDetailUser
         setContentView(binding.root)
 
+        binding.toolbarLayout.title = ""
         val result: String? = intent.getStringExtra(EXTRA_USERNAME_RESULT)
         stateUsername = result
 
@@ -125,7 +126,6 @@ class DetailUserActivity : AppCompatActivity() {
                     }
                 }
             }
-
         })
 
         detailUserViewModel.checkStatusServer().observe(this, {

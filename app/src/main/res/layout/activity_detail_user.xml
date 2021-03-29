@@ -47,4 +47,5 @@
         android:id="@+id/contentDetailUser"
         />
 
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

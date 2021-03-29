@@ -172,6 +172,8 @@ class HomeFragment : Fragment() {
   private fun showLoading(state: Boolean) {
     if (state) {
       binding.rvUser.visibility = View.GONE
+      binding.emptyLayout.message.visibility = View.GONE
+      binding.emptyLayout.pictureMsg.visibility = View.GONE
       binding.progressBar.visibility = View.VISIBLE
     } else {
       binding.progressBar.visibility = View.GONE
