@@ -34,7 +34,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     inner class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = UserItemsBinding.bind(itemView)
         fun bind(user: User) {
-            binding.detailUserContainer.setOnClickListener{ onItemClickCallback.onItemClicked(user) }
+            binding.includeUserItems.viewUser.setOnClickListener{ onItemClickCallback.onItemClicked(user) }
             binding.includeUserButton.toogleFavorite.isChecked = user.isfavorite
             val toogleButton = binding.includeUserButton.toogleFavorite
             binding.includeUserButton.toogleFavorite.setOnClickListener{ onItemFavoriteClickCallback.onItemFavoriteClicked(user,toogleButton)}

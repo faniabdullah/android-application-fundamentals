@@ -10,40 +10,28 @@
     <com.chauthai.swipereveallayout.SwipeRevealLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:dragEdge="right"
         app:mode="same_level"
-        app:dragEdge="right">
+        tools:layout_editor_absoluteX="-152dp"
+        tools:layout_editor_absoluteY="0dp">
 
-        <FrameLayout
+
+        <include
+            android:id="@+id/include_userButton"
+            layout="@layout/layout_button_favorite"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="8dp"
-            >
-            <include
-                android:layout_gravity="center"
-                android:id="@+id/include_userButton"
-                layout="@layout/layout_button_favorite"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        </FrameLayout>
-
-        <FrameLayout
+        <include
+            android:id="@+id/include_userItems"
+            layout="@layout/layout_user"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/shape"
-            android:id="@+id/detailUserContainer"
-            >
-            <include
-                android:id="@+id/include_userItems"
-                layout="@layout/layout_user"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        </FrameLayout>
 
     </com.chauthai.swipereveallayout.SwipeRevealLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

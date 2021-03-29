@@ -60,7 +60,6 @@ class FavoriteFragment : Fragment() {
 
     favoriteViewModel= ViewModelProvider(this).get(FavoriteViewModel::class.java)
 
-    showLoading(true)
     favoriteViewModel.getFavoriteUser()?.observe(viewLifecycleOwner, {
       if (it != null) {
         val list  = mapList(it)
@@ -78,6 +77,8 @@ class FavoriteFragment : Fragment() {
         showLoading(false)
       }
     })
+
+    showLoading(true)
 
   }
 
@@ -114,6 +115,7 @@ class FavoriteFragment : Fragment() {
 
   private fun showLoading(state: Boolean) {
     if (state) {
+      binding.rvUser.visibility = View.GONE
       binding.progressBar.visibility = View.VISIBLE
     } else {
       binding.progressBar.visibility = View.GONE

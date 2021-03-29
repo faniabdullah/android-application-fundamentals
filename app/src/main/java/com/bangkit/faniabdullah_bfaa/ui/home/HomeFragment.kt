@@ -29,7 +29,6 @@ class HomeFragment : Fragment() {
 
   private lateinit var homeViewModel: HomeViewModel
   private lateinit var adapter: UserAdapter
-  private var stateToogleFavorite: Boolean = false
   private var _binding: FragmentHomeBinding ? = null
   private val binding get() = _binding!!
 
@@ -172,6 +171,7 @@ class HomeFragment : Fragment() {
 
   private fun showLoading(state: Boolean) {
     if (state) {
+      binding.rvUser.visibility = View.GONE
       binding.progressBar.visibility = View.VISIBLE
     } else {
       binding.progressBar.visibility = View.GONE
