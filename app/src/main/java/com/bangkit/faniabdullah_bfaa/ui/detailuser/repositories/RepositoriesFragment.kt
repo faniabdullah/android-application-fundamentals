@@ -22,11 +22,10 @@ class RepositoriesFragment : Fragment(){
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?,
+    ): View {
         _binding = FragmentRepositoriesBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return  view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,7 +47,8 @@ class RepositoriesFragment : Fragment(){
             if (it != null) {
                 if (it.size == 0){
                     binding.emptyLayout.message.visibility = View.VISIBLE
-                    binding.emptyLayout.message.text = getText(R.string.notification_empyty_repositories)
+                    binding.emptyLayout.message.text =
+                        getText(R.string.notification_empyty_repositories)
                     binding.emptyLayout.pictureMsg.visibility = View.VISIBLE
                     binding.rvRepositories.visibility = View.GONE
                 }else{

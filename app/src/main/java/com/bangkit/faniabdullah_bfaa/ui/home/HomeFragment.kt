@@ -129,13 +129,13 @@ class HomeFragment : Fragment() {
 
   override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
     inflater.inflate(R.menu.option_menu, menu)
-    val searchManager = getActivity()?.getSystemService(SEARCH_SERVICE) as SearchManager
+    val searchManager = activity?.getSystemService(SEARCH_SERVICE) as SearchManager
     searchView = menu.findItem(R.id.search).actionView as SearchView
 
-    searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity()?.componentName))
-    searchView.queryHint = resources.getString(R.string.search_hint)
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
+        searchView.queryHint = resources.getString(R.string.search_hint)
 
-    if (stateSearchView != null && !stateSearchView!!.isEmpty() ) {
+    if (stateSearchView != null && stateSearchView != "" ) {
       searchView.run {
         onActionViewExpanded()
         requestFocusFromTouch()
@@ -181,10 +181,9 @@ class HomeFragment : Fragment() {
   }
 
   private fun searchUser(valueSearch: String){
-      val query = valueSearch
-      if (query.isEmpty()) return
+      if (valueSearch.isEmpty()) return
       showLoading(true)
-      homeViewModel.setSearchUsers(query)
+      homeViewModel.setSearchUsers(valueSearch)
   }
 
   override fun onSaveInstanceState(outState: Bundle) {

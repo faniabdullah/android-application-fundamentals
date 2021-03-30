@@ -18,7 +18,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class FollowersFragment : Fragment(R.layout.fragment_followers) {
     private var _binding: FragmentFollowersBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding as FragmentFollowersBinding
     private lateinit var followersViewModel : FollowersViewModel
     private lateinit var userAdapter: UserAdapter
     private lateinit var username : String
@@ -26,11 +26,10 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?,
+    ): View {
         _binding = FragmentFollowersBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return  view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,7 +45,8 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
             }
         })
 
-        userAdapter.setOnItemFavoriteClickCallback(object : UserAdapter.OnItemFavoriteClickCallback{
+        userAdapter.setOnItemFavoriteClickCallback(object :
+            UserAdapter.OnItemFavoriteClickCallback {
 
             override fun onItemFavoriteClicked(data: User, stateToogle: ToggleButton) {
                 setToogleFavorite(data , stateToogle)
@@ -67,7 +67,8 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
             if (it != null) {
                 if (it.size == 0){
                     binding.emptyLayout.message.visibility = View.VISIBLE
-                    binding.emptyLayout.message.text = getString(R.string.notification_empyty_followers)
+                    binding.emptyLayout.message.text =
+                        getString(R.string.notification_empyty_followers)
                     binding.emptyLayout.pictureMsg.visibility = View.VISIBLE
                     binding.rvFollowers.visibility = View.GONE
                 }else{
@@ -103,7 +104,8 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
             Snackbar.make(binding.root,R.string.notification_delete_from_favorite, Snackbar.LENGTH_LONG).show()
         }else{
             followersViewModel.addToFavorite(data)
-            Snackbar.make(binding.root,R.string.notification_add_to_favorite, Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.root, R.string.notification_add_to_favorite, Snackbar.LENGTH_LONG)
+                .show()
         }
     }
 

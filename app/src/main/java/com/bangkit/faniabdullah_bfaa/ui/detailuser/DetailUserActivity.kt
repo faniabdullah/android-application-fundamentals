@@ -72,7 +72,8 @@ class DetailUserActivity : AppCompatActivity() {
         detailUserViewModel.getDetailUser().observe(this, {
 
             if (it != null) {
-                    binding.toolbarLayout.title = if (it.name.kotlinTextIsNullOrEmpty()) it.login else it.name
+                binding.toolbarLayout.title =
+                    if (it.name.kotlinTextIsNullOrEmpty()) it.login else it.name
                 val followerCount = it.followers
                 val followingCount = it.following
                 binding.apply {
@@ -92,12 +93,12 @@ class DetailUserActivity : AppCompatActivity() {
 
                 CoroutineScope(Dispatchers.IO).launch {
                     val count = detailUserViewModel.isFavoriteUser(it.id)
-                    withContext(Dispatchers.Main){
-                        if (count != null){
-                            if (count > 0){
+                    withContext(Dispatchers.Main) {
+                        if (count != null) {
+                            if (count > 0) {
                                 bindingDetailUser.toogleFavorite.isChecked = true
                                 stateFavorite = true
-                            }else{
+                            } else {
                                 bindingDetailUser.toogleFavorite.isChecked = false
                                 stateFavorite = false
                             }
@@ -114,15 +115,17 @@ class DetailUserActivity : AppCompatActivity() {
                 )
 
                 bindingDetailUser.toogleFavorite.setOnClickListener {
-                    if (stateFavorite){
+                    stateFavorite = if (stateFavorite) {
                         detailUserViewModel.removeFavoriteUser(dataUser.id)
                         Snackbar.make(binding.root,R.string.notification_delete_from_favorite,
                             Snackbar.LENGTH_LONG).show()
-                        stateFavorite = false
+                        false
                     }else{
                         detailUserViewModel.addToFavorite(dataUser)
-                        Snackbar.make(binding.root,R.string.notification_add_to_favorite,Snackbar.LENGTH_LONG).show()
-                        stateFavorite = true
+                        Snackbar.make(binding.root,
+                            R.string.notification_add_to_favorite,
+                            Snackbar.LENGTH_LONG).show()
+                        true
                     }
                 }
             }

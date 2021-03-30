@@ -77,7 +77,7 @@ class FollowersViewModel (application: Application) : AndroidViewModel(applicati
     }
 
 
-    fun addToFavorite(data : User){
+    fun addToFavorite(data: User) {
         CoroutineScope(Dispatchers.IO).launch {
             val user = FavoriteUser(
                 data.id,
@@ -90,10 +90,10 @@ class FollowersViewModel (application: Application) : AndroidViewModel(applicati
         }
     }
 
-    suspend fun isFavoriteUser(id: Int) = userDao?.isFavoriteUser(id)
+    private fun isFavoriteUser(id: Int) = userDao?.isFavoriteUser(id)
 
 
-    fun removeFavoriteUser(id:Int){
+    fun removeFavoriteUser(id: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             userDao?.removeUserFavorites(id)
         }
