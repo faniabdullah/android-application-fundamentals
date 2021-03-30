@@ -93,7 +93,7 @@ class HomeViewModel (application: Application) : AndroidViewModel(application) {
         }
     }
 
-    suspend fun isFavoriteUser(id: Int) = userDao?.isFavoriteUser(id)
+    private fun isFavoriteUser(id: Int) = userDao?.isFavoriteUser(id)
 
 
     fun removeFavoriteUser(id:Int){
