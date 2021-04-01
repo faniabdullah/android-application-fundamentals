@@ -14,9 +14,10 @@
         android:theme="@style/Theme.AndroidApplicationFundamentals"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".ui.SplashScreenActivity"
-            android:theme="@style/Theme.AndroidApplicationFundamentals.NoActionBar"
-            >
+        <activity android:name=".ui.setting.SettingActivity"></activity>
+        <activity
+            android:name=".ui.SplashScreenActivity"
+            android:theme="@style/Theme.AndroidApplicationFundamentals.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -30,7 +31,7 @@
             android:theme="@style/Theme.AndroidApplicationFundamentals.NoActionBar" />
         <activity
             android:name=".ui.MainActivity"
-            android:label="@string/app_name"/>
+            android:label="@string/app_name" />
     </application>
 
 </manifest>
