@@ -14,7 +14,12 @@
         android:theme="@style/Theme.AndroidApplicationFundamentals"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".ui.setting.SettingActivity"></activity>
+        <receiver
+            android:name=".utils.receiver.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
+
+        <activity android:name=".ui.setting.SettingActivity" />
         <activity
             android:name=".ui.SplashScreenActivity"
             android:theme="@style/Theme.AndroidApplicationFundamentals.NoActionBar">

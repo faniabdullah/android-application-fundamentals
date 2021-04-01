@@ -31,6 +31,7 @@
     <string name="notification_error_server">OOPS \n Sedang Ada gangguan di server , Coba lagi nanti dan Jangan lupa Periksa Kembali Internet Anda :)</string>
     <string name="notification_add_to_favorite">Berhasil Menambahkan Ke Favorite</string>
     <string name="notification_delete_from_favorite">Berhasil Menghapus dari Favorite</string>
+    <string name="notification_search_user">Mari Temukan Pengguna Populer di github</string>
     <string name="daily_reminder">Pengingat Harian</string>
 
 </resources>
