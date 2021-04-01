@@ -1,9 +1,11 @@
 package com.bangkit.faniabdullah_bfaa.data.local
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.io.Serializable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity(tableName = "favorite_user")
 data class FavoriteUser(
     @PrimaryKey
@@ -12,4 +14,4 @@ data class FavoriteUser(
     val avatar_url : String,
     val type: String,
     var isfavorite : Boolean
-): Serializable
+): Parcelable
