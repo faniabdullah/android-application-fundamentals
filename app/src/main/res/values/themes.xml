@@ -19,6 +19,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="BrandedSwitch.control" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">@color/blue_200</item>
+        <item name="colorSwitchThumbNormal">?attr/colorPrimary</item>
+    </style>
+
     <style name="Theme.AndroidApplicationFundamentals.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.AndroidApplicationFundamentals.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

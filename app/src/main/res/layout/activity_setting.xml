@@ -62,13 +62,14 @@
         <androidx.appcompat.widget.SwitchCompat
             android:id="@+id/setting_switch_reminder"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            android:layout_height="wrap_content"
+            android:padding="2dp"
+            android:theme="@style/BrandedSwitch.control"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.272" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -162,9 +162,11 @@ class HomeFragment : Fragment() {
   }
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    if (item.itemId == R.id.action_menu1) {
-      val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
-      startActivity(mIntent)
+    if (item.itemId == R.id.menu_setting) {
+      val toSettingActivity = HomeFragmentDirections.actionNavigationHomeToSettingActivity()
+      view?.findNavController()?.navigate(toSettingActivity)
+//      val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+//      startActivity(mIntent)
     }
     return super.onOptionsItemSelected(item)
   }

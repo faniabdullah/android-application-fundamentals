@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_navigation_home_to_detailUserActivity"
             app:destination="@id/detailUserActivity" />
+        <action
+            android:id="@+id/action_navigation_home_to_settingActivity"
+            app:destination="@id/settingActivity" />
     </fragment>
 
     <fragment
@@ -38,5 +41,10 @@
             android:defaultValue="default username" />
 
     </activity>
+    <activity
+        android:id="@+id/settingActivity"
+        android:name="com.bangkit.faniabdullah_bfaa.ui.setting.SettingActivity"
+        android:label="activity_setting"
+        tools:layout="@layout/activity_setting" />
 
 </navigation>
