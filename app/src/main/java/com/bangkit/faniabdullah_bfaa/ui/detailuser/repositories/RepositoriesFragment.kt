@@ -12,12 +12,12 @@ import com.bangkit.faniabdullah_bfaa.databinding.FragmentRepositoriesBinding
 import com.bangkit.faniabdullah_bfaa.ui.adapter.RepositoriesAdapter
 import com.bangkit.faniabdullah_bfaa.ui.detailuser.DetailUserActivity
 
-class RepositoriesFragment : Fragment(){
+class RepositoriesFragment : Fragment() {
     private var _binding: FragmentRepositoriesBinding? = null
     private val binding get() = _binding!!
     private lateinit var repoAdapter: RepositoriesAdapter
-    private lateinit var username : String
-    private lateinit var repositoriesViewModel : RepositoriesViewModel
+    private lateinit var username: String
+    private lateinit var repositoriesViewModel: RepositoriesViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,18 +40,18 @@ class RepositoriesFragment : Fragment(){
             rvRepositories.adapter = repoAdapter
         }
 
-        repositoriesViewModel  = ViewModelProvider(this).get(RepositoriesViewModel::class.java)
+        repositoriesViewModel = ViewModelProvider(this).get(RepositoriesViewModel::class.java)
         repositoriesViewModel.setListRepositories(username)
 
         repositoriesViewModel.getRepositories().observe(viewLifecycleOwner, {
             if (it != null) {
-                if (it.size == 0){
+                if (it.size == 0) {
                     binding.emptyLayout.message.visibility = View.VISIBLE
                     binding.emptyLayout.message.text =
                         getText(R.string.notification_empyty_repositories)
                     binding.emptyLayout.pictureMsg.visibility = View.VISIBLE
                     binding.rvRepositories.visibility = View.GONE
-                }else{
+                } else {
                     binding.emptyLayout.message.visibility = View.GONE
                     binding.emptyLayout.pictureMsg.visibility = View.GONE
                     binding.rvRepositories.visibility = View.VISIBLE

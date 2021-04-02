@@ -15,28 +15,27 @@ class RepositoriesViewModel : ViewModel() {
     val listRepositories = MutableLiveData<ArrayList<RepositoriesResponse>>()
 
 
-    fun setListRepositories(username: String){
+    fun setListRepositories(username: String) {
         RetrofitClient.apiInstance
             .getRepositoriesUsers(username)
-            .enqueue(object  : Callback<ArrayList<RepositoriesResponse>> {
+            .enqueue(object : Callback<ArrayList<RepositoriesResponse>> {
                 override fun onResponse(
                     call: Call<ArrayList<RepositoriesResponse>>,
                     response: Response<ArrayList<RepositoriesResponse>>,
                 ) {
-                    if (response.isSuccessful){
+                    if (response.isSuccessful) {
                         listRepositories.postValue(response.body())
                     }
                 }
 
                 override fun onFailure(call: Call<ArrayList<RepositoriesResponse>>, t: Throwable) {
-                    Log.e("Failure" , "${t.message}")
+                    Log.e("Failure", "${t.message}")
                 }
-
 
             })
     }
 
-    fun getRepositories() : LiveData<ArrayList<RepositoriesResponse>> {
+    fun getRepositories(): LiveData<ArrayList<RepositoriesResponse>> {
         return listRepositories
     }
 }
