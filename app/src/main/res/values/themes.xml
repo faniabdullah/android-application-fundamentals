@@ -29,4 +29,9 @@
     <style name="Theme.AndroidApplicationFundamentals.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="Theme.Broadcast.SmsReceiver" parent="Theme.MaterialComponents.DayNight.Dialog" />
+
+    <style name="ThemeOverlay.AndroidApplicationFundamentals.AppWidgetContainer" parent="">
+        <item name="appWidgetBackgroundColor">@color/light_blue_600</item>
+        <item name="appWidgetTextColor">@color/light_blue_50</item>
+    </style>
 </resources>

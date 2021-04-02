@@ -18,4 +18,9 @@
         <item name="colorControlActivated">@color/blue_200</item>
         <item name="colorSwitchThumbNormal">?attr/colorPrimary</item>
     </style>
+
+    <style name="ThemeOverlay.AndroidApplicationFundamentals.AppWidgetContainer" parent="">
+        <item name="appWidgetBackgroundColor">@color/light_blue_900</item>
+        <item name="appWidgetTextColor">@color/light_blue_200</item>
+    </style>
 </resources>

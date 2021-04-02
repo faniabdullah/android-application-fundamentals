@@ -4,7 +4,10 @@
     package="com.bangkit.faniabdullah_bfaa">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <permission android:name="com.bangkit.faniabdullah_bfaa.READ_DATABASE" android:protectionLevel="normal"/>
+
+    <permission
+        android:name="com.bangkit.faniabdullah_bfaa.READ_DATABASE"
+        android:protectionLevel="normal" />
 
     <application
         android:allowBackup="true"
@@ -15,13 +18,22 @@
         android:theme="@style/Theme.AndroidApplicationFundamentals"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
+        <receiver android:name=".ui.widgets.UserFavoriteWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/user_favorite_widget_info" />
+        </receiver>
+
         <provider
             android:name=".provider.UserContentProvider"
             android:authorities="com.bangkit.faniabdullah_bfaa"
             android:enabled="true"
             android:exported="true"
-            android:readPermission="com.bangkit.faniabdullah_bfaa.READ_DATABASE"
-            />
+            android:readPermission="com.bangkit.faniabdullah_bfaa.READ_DATABASE" />
 
         <receiver
             android:name=".utils.receiver.AlarmReceiver"
@@ -46,6 +58,9 @@
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name" />
+        <service
+            android:name="com.bangkit.faniabdullah_bfaa.ui.widgets.StackWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>

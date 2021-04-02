@@ -30,6 +30,8 @@
     <string name="notification_delete_from_favorite">Success removed from favorites</string>
     <string name="notification_search_user">Let\'s Find Popular User on github </string>
     <string name="daily_reminder">Daily Reminder</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 
 
 </resources>
