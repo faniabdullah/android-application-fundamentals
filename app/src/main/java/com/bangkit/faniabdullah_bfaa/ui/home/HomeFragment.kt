@@ -36,9 +36,9 @@ class HomeFragment : Fragment() {
     }
 
     override fun onCreateView(
-      inflater: LayoutInflater,
-      container: ViewGroup?,
-      savedInstanceState: Bundle?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
@@ -55,15 +55,15 @@ class HomeFragment : Fragment() {
         adapter = UserAdapter()
         adapter.notifyDataSetChanged()
         adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
-          override fun onItemClicked(data: User) {
-            showDetailUser(view, data)
-          }
+            override fun onItemClicked(data: User) {
+                showDetailUser(view, data)
+            }
         })
 
         adapter.setOnItemFavoriteClickCallback(object : UserAdapter.OnItemFavoriteClickCallback {
-          override fun onItemFavoriteClicked(data: User, stateToogle: ToggleButton) {
-            setToogleFavorite(data, stateToogle)
-          }
+            override fun onItemFavoriteClicked(data: User, stateToogle: ToggleButton) {
+                setToggleFavorite(data, stateToogle)
+            }
         })
 
 
@@ -76,31 +76,31 @@ class HomeFragment : Fragment() {
         homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         homeViewModel.checkStatusServer().observe(viewLifecycleOwner, {
-          if (it != true) {
-            binding.rvUser.visibility = View.GONE
-            binding.emptyLayout.pictureMsg.visibility = View.VISIBLE
-            binding.emptyLayout.message.visibility = View.VISIBLE
-            binding.emptyLayout.message.text = getString(R.string.notification_error_server)
-          }
+            if (it != true) {
+                binding.rvUser.visibility = View.GONE
+                binding.emptyLayout.pictureMsg.visibility = View.VISIBLE
+                binding.emptyLayout.message.visibility = View.VISIBLE
+                binding.emptyLayout.message.text = getString(R.string.notification_error_server)
+            }
         })
 
 
         homeViewModel.getSearchUser().observe(viewLifecycleOwner, {
-          if (it != null) {
-            if (it.size == 0) {
-              binding.rvUser.visibility = View.GONE
-              binding.emptyLayout.pictureMsg.visibility = View.VISIBLE
-              binding.emptyLayout.message.visibility = View.VISIBLE
-              binding.emptyLayout.message.text =
-                getString(R.string.notification_empyty_search)
-            } else {
-              binding.rvUser.visibility = View.VISIBLE
-              binding.emptyLayout.pictureMsg.visibility = View.GONE
-              binding.emptyLayout.message.visibility = View.GONE
-              adapter.setList(it)
+            if (it != null) {
+                if (it.size == 0) {
+                    binding.rvUser.visibility = View.GONE
+                    binding.emptyLayout.pictureMsg.visibility = View.VISIBLE
+                    binding.emptyLayout.message.visibility = View.VISIBLE
+                    binding.emptyLayout.message.text =
+                        getString(R.string.notification_empyty_search)
+                } else {
+                    binding.rvUser.visibility = View.VISIBLE
+                    binding.emptyLayout.pictureMsg.visibility = View.GONE
+                    binding.emptyLayout.message.visibility = View.GONE
+                    adapter.setList(it)
+                }
+                showLoading(false)
             }
-            showLoading(false)
-          }
         })
     }
 
@@ -109,12 +109,12 @@ class HomeFragment : Fragment() {
         searchUser(valueQuery)
     }
 
-    private fun setToogleFavorite(data: User, stateToogle: ToggleButton) {
+    private fun setToggleFavorite(data: User, stateToogle: ToggleButton) {
         if (!stateToogle.isChecked) {
             homeViewModel.removeFavoriteUser(data.id)
             Snackbar.make(binding.root,
-              R.string.notification_delete_from_favorite,
-              Snackbar.LENGTH_LONG).show()
+                R.string.notification_delete_from_favorite,
+                Snackbar.LENGTH_LONG).show()
         } else {
             homeViewModel.addToFavorite(data)
             Snackbar.make(binding.root, R.string.notification_add_to_favorite, Snackbar.LENGTH_LONG)
@@ -149,14 +149,14 @@ class HomeFragment : Fragment() {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
-          override fun onQueryTextSubmit(query: String): Boolean {
-            searchUser(query)
-            return true
-          }
+            override fun onQueryTextSubmit(query: String): Boolean {
+                searchUser(query)
+                return true
+            }
 
-          override fun onQueryTextChange(newText: String): Boolean {
-            return false
-          }
+            override fun onQueryTextChange(newText: String): Boolean {
+                return false
+            }
         })
 
         super.onCreateOptionsMenu(menu, inflater)
