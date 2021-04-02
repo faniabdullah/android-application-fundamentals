@@ -24,6 +24,6 @@ object MappingHelper {
                 )
             )
         }
-        return  list
+        return list
     }
 }

@@ -11,21 +11,21 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class FavoriteViewModel (application: Application) : AndroidViewModel(application) {
+class FavoriteViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var userDao : FavoriteUserDao? = null
-    private var userDB : UserDatabase?
+    private var userDao: FavoriteUserDao? = null
+    private var userDB: UserDatabase?
 
     init {
         userDB = UserDatabase.getDatabase(application)
         userDao = userDB?.favoriteUserDao()
     }
 
-    fun getFavoriteUser() : LiveData<List<FavoriteUser>>? {
-     return userDao?.getFavoriteUser()
+    fun getFavoriteUser(): LiveData<List<FavoriteUser>>? {
+        return userDao?.getFavoriteUser()
     }
 
-    fun addToFavorite(data : User){
+    fun addToFavorite(data: User) {
         CoroutineScope(Dispatchers.IO).launch {
             val user = FavoriteUser(
                 data.id,
@@ -41,7 +41,7 @@ class FavoriteViewModel (application: Application) : AndroidViewModel(applicatio
     private fun isFavoriteUser(id: Int) = userDao?.isFavoriteUser(id)
 
 
-    fun removeFavoriteUser(id:Int){
+    fun removeFavoriteUser(id: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             userDao?.removeUserFavorites(id)
         }

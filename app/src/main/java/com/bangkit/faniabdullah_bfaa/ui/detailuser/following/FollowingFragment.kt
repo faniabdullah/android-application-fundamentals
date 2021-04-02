@@ -17,20 +17,20 @@ import com.bangkit.faniabdullah_bfaa.ui.detailuser.DetailUserActivity
 import com.google.android.material.snackbar.Snackbar
 
 class FollowingFragment : Fragment() {
-    private var _binding : FragmentFollowingBinding? = null
+    private var _binding: FragmentFollowingBinding? = null
     private val binding get() = _binding!!
-    private lateinit var followingViewModel : FollowingViewModel
+    private lateinit var followingViewModel: FollowingViewModel
     private lateinit var userAdapter: UserAdapter
-    private lateinit var username : String
+    private lateinit var username: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentFollowingBinding.inflate(inflater, container, false)
         val view = binding.root
-        return  view
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,10 +52,11 @@ class FollowingFragment : Fragment() {
             }
         })
 
-        userAdapter.setOnItemFavoriteClickCallback(object : UserAdapter.OnItemFavoriteClickCallback{
+        userAdapter.setOnItemFavoriteClickCallback(object :
+            UserAdapter.OnItemFavoriteClickCallback {
 
             override fun onItemFavoriteClicked(data: User, stateToogle: ToggleButton) {
-                setToogleFavorite(data , stateToogle)
+                setToogleFavorite(data, stateToogle)
             }
         })
 
@@ -64,12 +65,13 @@ class FollowingFragment : Fragment() {
         followingViewModel.setListFollowing(username)
         followingViewModel.getFollowing().observe(viewLifecycleOwner, {
             if (it != null) {
-                if (it.size == 0){
+                if (it.size == 0) {
                     binding.emptyLayout.message.visibility = View.VISIBLE
-                    binding.emptyLayout.message.text = getString(R.string.notification_empyty_following)
+                    binding.emptyLayout.message.text =
+                        getString(R.string.notification_empyty_following)
                     binding.emptyLayout.pictureMsg.visibility = View.VISIBLE
                     binding.rvFollowing.visibility = View.GONE
-                }else{
+                } else {
                     binding.emptyLayout.message.visibility = View.GONE
                     binding.emptyLayout.pictureMsg.visibility = View.GONE
                     binding.rvFollowing.visibility = View.VISIBLE
@@ -84,12 +86,15 @@ class FollowingFragment : Fragment() {
     }
 
     private fun setToogleFavorite(data: User, stateToogle: ToggleButton) {
-        if (!stateToogle.isChecked){
+        if (!stateToogle.isChecked) {
             followingViewModel.removeFavoriteUser(data.id)
-            Snackbar.make(binding.root,R.string.notification_delete_from_favorite, Snackbar.LENGTH_LONG).show()
-        }else{
+            Snackbar.make(binding.root,
+                R.string.notification_delete_from_favorite,
+                Snackbar.LENGTH_LONG).show()
+        } else {
             followingViewModel.addToFavorite(data)
-            Snackbar.make(binding.root,R.string.notification_add_to_favorite, Snackbar.LENGTH_LONG).show()
+            Snackbar.make(binding.root, R.string.notification_add_to_favorite, Snackbar.LENGTH_LONG)
+                .show()
         }
     }
 
@@ -106,7 +111,6 @@ class FollowingFragment : Fragment() {
             binding.progressBar.visibility = View.GONE
         }
     }
-
 
 
     override fun onDestroyView() {

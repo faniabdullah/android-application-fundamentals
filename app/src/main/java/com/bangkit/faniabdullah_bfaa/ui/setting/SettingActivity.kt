@@ -1,8 +1,8 @@
 package com.bangkit.faniabdullah_bfaa.ui.setting
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.faniabdullah_bfaa.R
 import com.bangkit.faniabdullah_bfaa.databinding.ActivitySettingBinding
 import com.bangkit.faniabdullah_bfaa.domain.model.Reminder
@@ -11,7 +11,7 @@ import com.bangkit.faniabdullah_bfaa.utils.receiver.AlarmReceiver
 
 class SettingActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySettingBinding
-    private lateinit var reminder : Reminder
+    private lateinit var reminder: Reminder
     private lateinit var alarmReceiver: AlarmReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,18 +23,18 @@ class SettingActivity : AppCompatActivity() {
 
         val reminderPreference = ReminderPreference(this)
 
-        if (reminderPreference.getReminder().isReminded){
+        if (reminderPreference.getReminder().isReminded) {
             binding.settingSwitchReminder.isChecked = true
-            Log.e("but state ","checked")
+            Log.e("but state ", "checked")
         }
 
         alarmReceiver = AlarmReceiver()
 
         binding.settingSwitchReminder.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked){
+            if (isChecked) {
                 saveReminder(true)
-                alarmReceiver.setRepeatingAlarms(this, "RepeatingAlarm","20:04", "Github Reminder")
-            }else{
+                alarmReceiver.setRepeatingAlarms(this, "RepeatingAlarm", "20:04", "Github Reminder")
+            } else {
                 saveReminder(false)
                 alarmReceiver.cancelAlarm(this)
             }

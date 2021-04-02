@@ -18,37 +18,38 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FollowingViewModel  (application: Application) : AndroidViewModel(application) {
+class FollowingViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var userDao : FavoriteUserDao? = null
-    private var userDB : UserDatabase?
+    private var userDao: FavoriteUserDao? = null
+    private var userDB: UserDatabase?
 
     init {
         userDB = UserDatabase.getDatabase(application)
         userDao = userDB?.favoriteUserDao()
     }
+
     val listFollowing = MutableLiveData<ArrayList<User>>()
 
-    fun setListFollowing(username: String){
+    fun setListFollowing(username: String) {
         RetrofitClient.apiInstance
             .getFollowingUsers(username)
-            .enqueue(object  : Callback<ArrayList<User>> {
+            .enqueue(object : Callback<ArrayList<User>> {
                 override fun onResponse(
                     call: Call<ArrayList<User>>,
                     response: Response<ArrayList<User>>,
                 ) {
-                    if (response.isSuccessful){
+                    if (response.isSuccessful) {
                         setFavoriteUser(response.body())
                     }
                 }
 
                 override fun onFailure(call: Call<ArrayList<User>>, t: Throwable) {
-                    Log.e("Failure" , "${t.message}")
+                    Log.e("Failure", "${t.message}")
                 }
             })
     }
 
-    fun getFollowing() : LiveData<ArrayList<User>> {
+    fun getFollowing(): LiveData<ArrayList<User>> {
         return listFollowing
     }
 
@@ -76,7 +77,7 @@ class FollowingViewModel  (application: Application) : AndroidViewModel(applicat
     }
 
 
-    fun addToFavorite(data : User){
+    fun addToFavorite(data: User) {
         CoroutineScope(Dispatchers.IO).launch {
             val user = FavoriteUser(
                 data.id,
@@ -92,7 +93,7 @@ class FollowingViewModel  (application: Application) : AndroidViewModel(applicat
     private fun isFavoriteUser(id: Int) = userDao?.isFavoriteUser(id)
 
 
-    fun removeFavoriteUser(id:Int){
+    fun removeFavoriteUser(id: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             userDao?.removeUserFavorites(id)
         }

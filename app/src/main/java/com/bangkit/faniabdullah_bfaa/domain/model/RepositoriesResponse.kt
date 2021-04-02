@@ -5,8 +5,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class RepositoriesResponse(
-    val id : Int,
-    val name : String,
-    val stargazers_count : Int,
-    val description : String,
-): Parcelable
+    val id: Int,
+    val name: String,
+    val stargazers_count: Int,
+    val description: String,
+) : Parcelable

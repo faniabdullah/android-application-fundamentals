@@ -9,9 +9,9 @@ import com.bangkit.faniabdullah_bfaa.databinding.ItemRepositoriesBinding
 import com.bangkit.faniabdullah_bfaa.domain.model.RepositoriesResponse
 
 class RepositoriesAdapter : RecyclerView.Adapter<RepositoriesAdapter.RepositoriesViewHolder>() {
-    private  val list = ArrayList<RepositoriesResponse>()
+    private val list = ArrayList<RepositoriesResponse>()
 
-    inner class RepositoriesViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class RepositoriesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemRepositoriesBinding.bind(itemView)
         fun bind(repos: RepositoriesResponse) {
             binding.apply {
@@ -22,14 +22,15 @@ class RepositoriesAdapter : RecyclerView.Adapter<RepositoriesAdapter.Repositorie
         }
     }
 
-    fun setList(repos : ArrayList<RepositoriesResponse>){
+    fun setList(repos: ArrayList<RepositoriesResponse>) {
         list.clear()
         list.addAll(repos)
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoriesViewHolder {
-        val mView = LayoutInflater.from(parent.context).inflate(R.layout.item_repositories, parent, false)
+        val mView =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_repositories, parent, false)
         return RepositoriesViewHolder(mView)
     }
 
@@ -38,6 +39,6 @@ class RepositoriesAdapter : RecyclerView.Adapter<RepositoriesAdapter.Repositorie
     }
 
     override fun getItemCount(): Int {
-        return  list.size
+        return list.size
     }
 }

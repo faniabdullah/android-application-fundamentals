@@ -18,12 +18,12 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailUserViewModel (application: Application) : AndroidViewModel(application) {
+class DetailUserViewModel(application: Application) : AndroidViewModel(application) {
 
     val detailUser = MutableLiveData<DetailUserResponse>()
     val isSuccess = MutableLiveData<Boolean>()
-    private var userDao : FavoriteUserDao? = null
-    private var userDB : UserDatabase?
+    private var userDao: FavoriteUserDao? = null
+    private var userDB: UserDatabase?
 
     init {
         userDB = UserDatabase.getDatabase(application)
@@ -31,15 +31,15 @@ class DetailUserViewModel (application: Application) : AndroidViewModel(applicat
     }
 
 
-    fun setSearchDetailUsers(username : String){
+    fun setSearchDetailUsers(username: String) {
         RetrofitClient.apiInstance
             .getDetailUsers(username)
-            .enqueue(object  : Callback<DetailUserResponse> {
+            .enqueue(object : Callback<DetailUserResponse> {
                 override fun onResponse(
                     call: Call<DetailUserResponse>,
                     response: Response<DetailUserResponse>,
                 ) {
-                    if (response.isSuccessful){
+                    if (response.isSuccessful) {
                         detailUser.postValue(response.body())
                         isSuccess.postValue(true)
                     }
@@ -53,7 +53,7 @@ class DetailUserViewModel (application: Application) : AndroidViewModel(applicat
     }
 
 
-    fun addToFavorite(data : User){
+    fun addToFavorite(data: User) {
         CoroutineScope(Dispatchers.IO).launch {
             val user = FavoriteUser(
                 data.id,
@@ -69,13 +69,13 @@ class DetailUserViewModel (application: Application) : AndroidViewModel(applicat
     fun isFavoriteUser(id: Int) = userDao?.isFavoriteUser(id)
 
 
-    fun removeFavoriteUser(id:Int){
+    fun removeFavoriteUser(id: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             userDao?.removeUserFavorites(id)
         }
     }
 
-    fun getDetailUser() : LiveData<DetailUserResponse> {
+    fun getDetailUser(): LiveData<DetailUserResponse> {
         return detailUser
     }
 

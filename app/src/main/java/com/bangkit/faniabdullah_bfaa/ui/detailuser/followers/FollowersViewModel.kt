@@ -18,10 +18,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FollowersViewModel (application: Application) : AndroidViewModel(application) {
+class FollowersViewModel(application: Application) : AndroidViewModel(application) {
 
-    private var userDao : FavoriteUserDao? = null
-    private var userDB : UserDatabase?
+    private var userDao: FavoriteUserDao? = null
+    private var userDB: UserDatabase?
 
     init {
         userDB = UserDatabase.getDatabase(application)
@@ -30,26 +30,26 @@ class FollowersViewModel (application: Application) : AndroidViewModel(applicati
 
     val listFollowers = MutableLiveData<ArrayList<User>>()
 
-    fun setListFollowers(username: String){
+    fun setListFollowers(username: String) {
         RetrofitClient.apiInstance
             .getFollowersUsers(username)
-            .enqueue(object  : Callback<ArrayList<User>> {
+            .enqueue(object : Callback<ArrayList<User>> {
                 override fun onResponse(
                     call: Call<ArrayList<User>>,
                     response: Response<ArrayList<User>>,
                 ) {
-                   if (response.isSuccessful){
-                       setFavoriteUser(response.body())
-                   }
+                    if (response.isSuccessful) {
+                        setFavoriteUser(response.body())
+                    }
                 }
 
                 override fun onFailure(call: Call<ArrayList<User>>, t: Throwable) {
-                   Log.e("Failure" , "${t.message}")
+                    Log.e("Failure", "${t.message}")
                 }
             })
     }
 
-    fun getFollowers() : LiveData<ArrayList<User>> {
+    fun getFollowers(): LiveData<ArrayList<User>> {
         return listFollowers
     }
 

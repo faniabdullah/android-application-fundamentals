@@ -9,5 +9,5 @@ data class DataUser(
     val id: Int,
     val avatar_url: String,
     val type: String,
-    var isfavorite : Boolean
-):Parcelable
+    var isfavorite: Boolean,
+) : Parcelable

@@ -8,9 +8,11 @@ import com.bangkit.faniabdullah_bfaa.ui.detailuser.followers.FollowersFragment
 import com.bangkit.faniabdullah_bfaa.ui.detailuser.following.FollowingFragment
 import com.bangkit.faniabdullah_bfaa.ui.detailuser.repositories.RepositoriesFragment
 
-class SectionsPagerAdapter(activity: AppCompatActivity , data : Bundle) : FragmentStateAdapter(activity) {
+class SectionsPagerAdapter(activity: AppCompatActivity, data: Bundle) :
+    FragmentStateAdapter(activity) {
 
-    private var fragmentBundle : Bundle
+    private var fragmentBundle: Bundle
+
     init {
         fragmentBundle = data
     }
@@ -20,14 +22,14 @@ class SectionsPagerAdapter(activity: AppCompatActivity , data : Bundle) : Fragme
     }
 
     override fun createFragment(position: Int): Fragment {
-        var fragment : Fragment? = null
-        when(position){
+        var fragment: Fragment? = null
+        when (position) {
             0 -> fragment = FollowersFragment()
             1 -> fragment = FollowingFragment()
             2 -> fragment = RepositoriesFragment()
         }
         fragment?.arguments = this.fragmentBundle
-        
+
         return fragment as Fragment
     }
 }

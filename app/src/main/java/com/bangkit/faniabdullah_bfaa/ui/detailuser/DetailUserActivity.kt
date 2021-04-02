@@ -67,7 +67,7 @@ class DetailUserActivity : AppCompatActivity() {
 
     private fun showDataDetail(username: String) {
         var stateFavorite = false
-        detailUserViewModel= ViewModelProvider(this).get(DetailUserViewModel::class.java)
+        detailUserViewModel = ViewModelProvider(this).get(DetailUserViewModel::class.java)
         detailUserViewModel.setSearchDetailUsers(username)
         detailUserViewModel.getDetailUser().observe(this, {
 
@@ -87,8 +87,8 @@ class DetailUserActivity : AppCompatActivity() {
                 bindingDetailUser.apply {
                     tvUsernameDetail.text = it.login
                     tvLocation.text = it.location
-                    tvFollowers.text = getString(R.string.followers_users , followerCount)
-                    tvFollowing.text = getString(R.string.following_users , followingCount)
+                    tvFollowers.text = getString(R.string.followers_users, followerCount)
+                    tvFollowing.text = getString(R.string.following_users, followingCount)
                 }
 
                 CoroutineScope(Dispatchers.IO).launch {
@@ -117,10 +117,10 @@ class DetailUserActivity : AppCompatActivity() {
                 bindingDetailUser.toogleFavorite.setOnClickListener {
                     stateFavorite = if (stateFavorite) {
                         detailUserViewModel.removeFavoriteUser(dataUser.id)
-                        Snackbar.make(binding.root,R.string.notification_delete_from_favorite,
+                        Snackbar.make(binding.root, R.string.notification_delete_from_favorite,
                             Snackbar.LENGTH_LONG).show()
                         false
-                    }else{
+                    } else {
                         detailUserViewModel.addToFavorite(dataUser)
                         Snackbar.make(binding.root,
                             R.string.notification_add_to_favorite,
@@ -132,14 +132,14 @@ class DetailUserActivity : AppCompatActivity() {
         })
 
         detailUserViewModel.checkStatusServer().observe(this, {
-            if (it != true){
+            if (it != true) {
                 bindingDetailUser.apply {
                     tvUsernameDetail.visibility = View.GONE
                     tvLocation.visibility = View.GONE
                     tvFollowers.visibility = View.GONE
                     tvFollowing.visibility = View.GONE
                     viewPager.visibility = View.GONE
-                    tabLayout.visibility =View.GONE
+                    tabLayout.visibility = View.GONE
                     toogleFavorite.visibility = View.GONE
                     emptyLayout.pictureMsg.visibility = View.VISIBLE
                     emptyLayout.message.visibility = View.VISIBLE

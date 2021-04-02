@@ -8,14 +8,14 @@ object DatabaseContract {
     const val SCHEME = "content"
 
     internal class FavoriteUserColumns : BaseColumns {
-        companion object{
-            const val TABLE_NAME= "favorite_user"
+        companion object {
+            private const val TABLE_NAME = "favorite_user"
             const val ID = "id"
             const val USERNAME = "login"
             const val AVATAR_URL = "avatar_url"
             const val TYPE = "type"
 
-            val CONTENT_URI = Uri.Builder().scheme(SCHEME)
+            val CONTENT_URI: Uri = Uri.Builder().scheme(SCHEME)
                 .authority(AUTHORITY)
                 .appendPath(TABLE_NAME)
                 .build()

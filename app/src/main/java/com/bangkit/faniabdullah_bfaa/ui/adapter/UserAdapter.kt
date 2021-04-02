@@ -13,7 +13,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 
 class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
-    private  val list = ArrayList<User>()
+    private val list = ArrayList<User>()
     private lateinit var onItemClickCallback: OnItemClickCallback
     private lateinit var onItemFavoriteClickCallback: OnItemFavoriteClickCallback
 
@@ -25,7 +25,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
         this.onItemClickCallback = onItemClickCallback
     }
 
-    fun setList(users : ArrayList<User>){
+    fun setList(users: ArrayList<User>) {
         list.clear()
         list.addAll(users)
         notifyDataSetChanged()
@@ -34,10 +34,15 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     inner class UserViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = UserItemsBinding.bind(itemView)
         fun bind(user: User) {
-            binding.includeUserItems.viewUser.setOnClickListener{ onItemClickCallback.onItemClicked(user) }
+            binding.includeUserItems.viewUser.setOnClickListener {
+                onItemClickCallback.onItemClicked(user)
+            }
             binding.includeUserButton.toogleFavorite.isChecked = user.isfavorite
             val toogleButton = binding.includeUserButton.toogleFavorite
-            binding.includeUserButton.toogleFavorite.setOnClickListener{ onItemFavoriteClickCallback.onItemFavoriteClicked(user,toogleButton)}
+            binding.includeUserButton.toogleFavorite.setOnClickListener {
+                onItemFavoriteClickCallback.onItemFavoriteClicked(user,
+                    toogleButton)
+            }
             binding.apply {
                 Glide.with(itemView)
                     .load(user.avatar_url)
@@ -45,8 +50,8 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
                     .centerCrop()
                     .placeholder(R.drawable.placeholder_user)
                     .into(includeUserItems.circleImageView)
-                    includeUserItems.nameUser.text = user.login
-                    includeUserItems.tvUsername.text = user.type
+                includeUserItems.nameUser.text = user.login
+                includeUserItems.tvUsername.text = user.type
             }
         }
 
@@ -58,11 +63,11 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-       holder.bind(list[position])
+        holder.bind(list[position])
     }
 
     override fun getItemCount(): Int {
-        return  list.size
+        return list.size
     }
 
     interface OnItemClickCallback {

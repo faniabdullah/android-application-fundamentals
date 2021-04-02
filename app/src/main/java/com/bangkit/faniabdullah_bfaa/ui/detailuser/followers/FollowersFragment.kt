@@ -19,9 +19,9 @@ import com.google.android.material.snackbar.Snackbar
 class FollowersFragment : Fragment(R.layout.fragment_followers) {
     private var _binding: FragmentFollowersBinding? = null
     private val binding get() = _binding as FragmentFollowersBinding
-    private lateinit var followersViewModel : FollowersViewModel
+    private lateinit var followersViewModel: FollowersViewModel
     private lateinit var userAdapter: UserAdapter
-    private lateinit var username : String
+    private lateinit var username: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,7 +49,7 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
             UserAdapter.OnItemFavoriteClickCallback {
 
             override fun onItemFavoriteClicked(data: User, stateToogle: ToggleButton) {
-                setToogleFavorite(data , stateToogle)
+                setToogleFavorite(data, stateToogle)
             }
 
         })
@@ -65,13 +65,13 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
         followersViewModel.getFollowers().observe(viewLifecycleOwner, {
 
             if (it != null) {
-                if (it.size == 0){
+                if (it.size == 0) {
                     binding.emptyLayout.message.visibility = View.VISIBLE
                     binding.emptyLayout.message.text =
                         getString(R.string.notification_empyty_followers)
                     binding.emptyLayout.pictureMsg.visibility = View.VISIBLE
                     binding.rvFollowers.visibility = View.GONE
-                }else{
+                } else {
                     binding.emptyLayout.message.visibility = View.GONE
                     binding.emptyLayout.pictureMsg.visibility = View.GONE
                     binding.rvFollowers.visibility = View.VISIBLE
@@ -83,7 +83,7 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
         showLoading(true)
     }
 
-    private fun showDetailUser( data: User) {
+    private fun showDetailUser(data: User) {
         val intentDetail = Intent(context, DetailUserActivity::class.java)
         intentDetail.putExtra(DetailUserActivity.EXTRA_USERNAME_RESULT, data.login)
         startActivity(intentDetail)
@@ -99,10 +99,12 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
 
     private fun setToogleFavorite(data: User, stateToogle: ToggleButton) {
 
-        if (!stateToogle.isChecked){
+        if (!stateToogle.isChecked) {
             followersViewModel.removeFavoriteUser(data.id)
-            Snackbar.make(binding.root,R.string.notification_delete_from_favorite, Snackbar.LENGTH_LONG).show()
-        }else{
+            Snackbar.make(binding.root,
+                R.string.notification_delete_from_favorite,
+                Snackbar.LENGTH_LONG).show()
+        } else {
             followersViewModel.addToFavorite(data)
             Snackbar.make(binding.root, R.string.notification_add_to_favorite, Snackbar.LENGTH_LONG)
                 .show()
