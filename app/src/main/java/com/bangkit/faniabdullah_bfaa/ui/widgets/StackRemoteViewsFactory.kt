@@ -53,7 +53,6 @@ class StackRemoteViewsFactory(private val mContext: Context) :
     override fun getCount(): Int = list.size
 
     override fun getViewAt(position: Int): RemoteViews {
-//
 
         val views = RemoteViews(mContext.packageName, R.layout.widget_item)
 

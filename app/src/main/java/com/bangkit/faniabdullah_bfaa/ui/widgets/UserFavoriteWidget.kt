@@ -1,13 +1,11 @@
 package com.bangkit.faniabdullah_bfaa.ui.widgets
 
-import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
-import android.widget.Toast
 import androidx.core.net.toUri
 import com.bangkit.faniabdullah_bfaa.R
 
@@ -16,10 +14,6 @@ import com.bangkit.faniabdullah_bfaa.R
  */
 class UserFavoriteWidget : AppWidgetProvider() {
     companion object {
-
-        private const val TOAST_ACTION = "com.bangkit.faniabdullah_bfaa.TOAST_ACTION"
-        const val EXTRA_ITEM = "com.bangkit.faniabdullah_bfaa.EXTRA_ITEM"
-
         private fun updateAppWidget(
             context: Context,
             appWidgetManager: AppWidgetManager,
@@ -32,18 +26,6 @@ class UserFavoriteWidget : AppWidgetProvider() {
             val views = RemoteViews(context.packageName, R.layout.user_favorite_widget)
             views.setRemoteAdapter(R.id.stack_view, intent)
             views.setEmptyView(R.id.stack_view, R.id.empty_view)
-
-            val toastIntent = Intent(context, UserFavoriteWidget::class.java)
-            toastIntent.action = TOAST_ACTION
-            toastIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
-            intent.data = intent.toUri(Intent.URI_INTENT_SCHEME).toUri()
-
-            val toastPendingIntent = PendingIntent.getBroadcast(context,
-                0,
-                toastIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT)
-            views.setPendingIntentTemplate(R.id.stack_view, toastPendingIntent)
-
             appWidgetManager.updateAppWidget(appWidgetId, views)
 
         }
