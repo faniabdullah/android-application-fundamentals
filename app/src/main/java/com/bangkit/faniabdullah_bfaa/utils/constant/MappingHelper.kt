@@ -1,7 +1,6 @@
 package com.bangkit.faniabdullah_bfaa.utils.constant
 
 import android.database.Cursor
-import com.bangkit.faniabdullah_bfaa.data.local.FavoriteUser
 import com.bangkit.faniabdullah_bfaa.domain.model.User
 
 object MappingHelper {

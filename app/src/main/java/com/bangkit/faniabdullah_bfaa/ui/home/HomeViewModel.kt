@@ -110,7 +110,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         return isSuccess
     }
 
-    private fun refrestWidget(){
+    private fun refrestWidget() {
         UserFavoriteWidget.eventRefreshWidget(mContext)
     }
 }

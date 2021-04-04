@@ -80,6 +80,7 @@ class AlarmReceiver : BroadcastReceiver() {
             AlarmManager.INTERVAL_DAY,
             pendingIntent)
 
+        Toast.makeText(context, R.string.reminder_activated, Toast.LENGTH_SHORT).show()
     }
 
     private fun String.isDateInvalid(time: String): Boolean {
@@ -99,6 +100,6 @@ class AlarmReceiver : BroadcastReceiver() {
         val requestCode = ID_REPEATING
         val pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0)
         alarmManager.cancel(pendingIntent)
-        Toast.makeText(context, "Repeating alarm canceled ", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, R.string.reminder_canceled, Toast.LENGTH_SHORT).show()
     }
 }

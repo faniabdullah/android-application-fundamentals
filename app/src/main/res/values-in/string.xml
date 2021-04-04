@@ -33,5 +33,7 @@
     <string name="notification_delete_from_favorite">Berhasil Menghapus dari Favorite</string>
     <string name="notification_search_user">Mari Temukan Pengguna Populer di github</string>
     <string name="daily_reminder">Pengingat Harian</string>
-
+    <string name="list_favorite_user">Daftar Pengguna Favorit</string>
+    <string name="reminder_activated">Alarm Berulang Di Aktifkan</string>
+    <string name="reminder_canceled">Alarm Berulang Di Batalkan</string>
 </resources>
