@@ -1,7 +1,8 @@
 package com.bangkit.faniabdullah_bfaa.ui.setting
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.provider.Settings
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.faniabdullah_bfaa.R
 import com.bangkit.faniabdullah_bfaa.databinding.ActivitySettingBinding
@@ -25,7 +26,6 @@ class SettingActivity : AppCompatActivity() {
 
         if (reminderPreference.getReminder().isReminded) {
             binding.settingSwitchReminder.isChecked = true
-            Log.e("but state ", "checked")
         }
 
         alarmReceiver = AlarmReceiver()
@@ -33,11 +33,16 @@ class SettingActivity : AppCompatActivity() {
         binding.settingSwitchReminder.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 saveReminder(true)
-                alarmReceiver.setRepeatingAlarms(this, "RepeatingAlarm", "20:04", "Github Reminder")
+                alarmReceiver.setRepeatingAlarms(this, "RepeatingAlarm", "09:00", "Github Reminder")
             } else {
                 saveReminder(false)
                 alarmReceiver.cancelAlarm(this)
             }
+        }
+
+        binding.btnChangeLanguage.setOnClickListener {
+            val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+            startActivity(mIntent)
         }
     }
 

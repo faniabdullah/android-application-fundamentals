@@ -44,7 +44,7 @@ class HomeFragment : Fragment() {
         val view = binding.root
 
         if (savedInstanceState != null) {
-            stateSearchView = savedInstanceState.getString(STATE_SEARCH);
+            stateSearchView = savedInstanceState.getString(STATE_SEARCH)
         }
         return view
     }
@@ -167,8 +167,6 @@ class HomeFragment : Fragment() {
         if (item.itemId == R.id.menu_setting) {
             val toSettingActivity = HomeFragmentDirections.actionNavigationHomeToSettingActivity()
             view?.findNavController()?.navigate(toSettingActivity)
-//      val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
-//      startActivity(mIntent)
         }
         return super.onOptionsItemSelected(item)
     }

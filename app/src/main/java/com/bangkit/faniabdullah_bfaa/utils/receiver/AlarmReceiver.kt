@@ -9,7 +9,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
-import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.bangkit.faniabdullah_bfaa.R
@@ -18,7 +17,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class AlarmReceiver : BroadcastReceiver() {
-    companion object{
+    companion object {
         private const val NOTIFICATION_ID = 1
         private const val CHANNEL_ID = "channel_01"
         private const val CHANNEL_NAME = "Github Reminder"
@@ -29,24 +28,29 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     override fun onReceive(context: Context, intent: Intent) {
-    sendNotification(context)
+        sendNotification(context)
     }
 
-    private fun sendNotification(context : Context?){
-        val intent = context?.packageManager?.getLaunchIntentForPackage("com.bangkit.faniabdullah_bfaa")
-        val pendingIntent = PendingIntent.getActivity(context,0,intent,0)
-        val notificationManager = context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    private fun sendNotification(context: Context?) {
+        val intent =
+            context?.packageManager?.getLaunchIntentForPackage("com.bangkit.faniabdullah_bfaa")
+        val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+        val notificationManager =
+            context?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setContentIntent(pendingIntent)
             .setSmallIcon(R.drawable.logo_diigithub)
-            .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.logo_diigithub))
+            .setLargeIcon(BitmapFactory.decodeResource(context.resources,
+                R.drawable.logo_diigithub))
             .setContentTitle(context.getString(R.string.app_name))
             .setContentText(context.getString(R.string.notification_search_user))
             .setAutoCancel(true)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(CHANNEL_ID,
+                CHANNEL_NAME,
+                NotificationManager.IMPORTANCE_DEFAULT)
             builder.setChannelId(CHANNEL_ID)
             notificationManager.createNotificationChannel(channel)
         }
@@ -56,39 +60,44 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
 
-    fun setRepeatingAlarms(context: Context , type : String, time:String , message : String){
-        if (isDateInvalid(time, TIME_FORMAT)) return
+    fun setRepeatingAlarms(context: Context, type: String, time: String, message: String) {
+        if (TIME_FORMAT.isDateInvalid(time)) return
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intent = Intent(context , AlarmReceiver::class.java)
-        intent.putExtra(EXTRA_MESSAGE,message)
-        intent.putExtra(EXTRA_TYPE , type)
+        val intent = Intent(context, AlarmReceiver::class.java)
+        intent.putExtra(EXTRA_MESSAGE, message)
+        intent.putExtra(EXTRA_TYPE, type)
         val timeArray = time.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+
         val calendar = Calendar.getInstance()
         calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeArray[0]))
         calendar.set(Calendar.MINUTE, Integer.parseInt(timeArray[1]))
         calendar.set(Calendar.SECOND, 0)
-        val pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING,intent , 0)
-        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, AlarmManager.INTERVAL_DAY ,pendingIntent)
+
+        val pendingIntent = PendingIntent.getBroadcast(context, ID_REPEATING, intent, 0)
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+            calendar.timeInMillis,
+            AlarmManager.INTERVAL_DAY,
+            pendingIntent)
 
     }
 
-    private fun isDateInvalid(time: String, timeFormat: String): Boolean {
+    private fun String.isDateInvalid(time: String): Boolean {
         return try {
-            val df = SimpleDateFormat(timeFormat , Locale.getDefault())
-            df.isLenient =false
+            val df = SimpleDateFormat(this, Locale.getDefault())
+            df.isLenient = false
             df.parse(time)
             false
-        } catch (e: ParseException){
+        } catch (e: ParseException) {
             true
         }
     }
 
-    fun cancelAlarm (context: Context){
-        val alarmManager =context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+    fun cancelAlarm(context: Context) {
+        val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)
         val requestCode = ID_REPEATING
-        val pendingIntent = PendingIntent.getBroadcast(context,requestCode,intent,0)
+        val pendingIntent = PendingIntent.getBroadcast(context, requestCode, intent, 0)
         alarmManager.cancel(pendingIntent)
         Toast.makeText(context, "Repeating alarm canceled ", Toast.LENGTH_SHORT).show()
     }
