@@ -13,6 +13,7 @@ import com.bangkit.faniabdullah_bfaa.ui.MainActivity
 
 class UserFavoriteWidget : AppWidgetProvider() {
     companion object {
+        private const val ACTION_REFRESH = "action_refresh"
 
         private fun updateAppWidget(
             context: Context,
@@ -23,9 +24,13 @@ class UserFavoriteWidget : AppWidgetProvider() {
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
             intent.data = intent.toUri(Intent.URI_INTENT_SCHEME).toUri()
 
-            val views = RemoteViews(context.packageName, R.layout.user_favorite_widget)
-            views.setRemoteAdapter(R.id.stack_view, intent)
-            views.setEmptyView(R.id.stack_view, R.id.empty_view)
+            val refreshIntent = Intent(context, UserFavoriteWidget::class.java)
+            refreshIntent.action = ACTION_REFRESH
+            refreshIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
+            val refreshPendingIntent = PendingIntent.getBroadcast(context,
+                0,
+                refreshIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT)
 
             val toMainActivityIntent = Intent(context, MainActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -34,18 +39,17 @@ class UserFavoriteWidget : AppWidgetProvider() {
                 0,
                 toMainActivityIntent,
                 0)
-            views.setPendingIntentTemplate(R.id.stack_view, toMainPendingIntent)
+
+            val views = RemoteViews(context.packageName, R.layout.user_favorite_widget)
+            views.apply {
+                setRemoteAdapter(R.id.stack_view, intent)
+                setEmptyView(R.id.stack_view, R.id.empty_view)
+                setOnClickPendingIntent(R.id.imageButtonRefreshWidget, refreshPendingIntent)
+                setOnClickPendingIntent(R.id.banner_text_widget, toMainPendingIntent)
+            }
 
             appWidgetManager.updateAppWidget(appWidgetId, views)
         }
-
-        fun eventRefreshWidget(context: Context) {
-            val intent = Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE).apply {
-                component = ComponentName(context, UserFavoriteWidget::class.java)
-            }
-            context.sendBroadcast(intent)
-        }
-
     }
 
     override fun onUpdate(
@@ -61,7 +65,7 @@ class UserFavoriteWidget : AppWidgetProvider() {
 
     override fun onReceive(context: Context?, intent: Intent?) {
         intent?.let {
-            if (it.action == AppWidgetManager.ACTION_APPWIDGET_UPDATE) {
+            if (it.action == ACTION_REFRESH) {
                 val component = context?.let { context ->
                     ComponentName(
                         context,
