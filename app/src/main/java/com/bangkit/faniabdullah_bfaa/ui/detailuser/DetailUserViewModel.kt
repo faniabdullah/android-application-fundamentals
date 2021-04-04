@@ -23,10 +23,9 @@ class DetailUserViewModel(application: Application) : AndroidViewModel(applicati
     val detailUser = MutableLiveData<DetailUserResponse>()
     val isSuccess = MutableLiveData<Boolean>()
     private var userDao: FavoriteUserDao? = null
-    private var userDB: UserDatabase?
+    private var userDB: UserDatabase? = UserDatabase.getDatabase(application)
 
     init {
-        userDB = UserDatabase.getDatabase(application)
         userDao = userDB?.favoriteUserDao()
     }
 

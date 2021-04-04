@@ -21,14 +21,13 @@ import retrofit2.Response
 class FollowersViewModel(application: Application) : AndroidViewModel(application) {
 
     private var userDao: FavoriteUserDao? = null
-    private var userDB: UserDatabase?
+    private var userDB: UserDatabase? = UserDatabase.getDatabase(application)
 
     init {
-        userDB = UserDatabase.getDatabase(application)
         userDao = userDB?.favoriteUserDao()
     }
 
-    val listFollowers = MutableLiveData<ArrayList<User>>()
+    private val listFollowers = MutableLiveData<ArrayList<User>>()
 
     fun setListFollowers(username: String) {
         RetrofitClient.apiInstance

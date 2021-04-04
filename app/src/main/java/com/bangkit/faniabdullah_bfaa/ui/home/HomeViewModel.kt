@@ -23,11 +23,10 @@ import retrofit2.Response
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     private var userDao: FavoriteUserDao? = null
-    private var userDB: UserDatabase?
+    private var userDB: UserDatabase? = UserDatabase.getDatabase(application)
     private var mContext = application
 
     init {
-        userDB = UserDatabase.getDatabase(application)
         userDao = userDB?.favoriteUserDao()
     }
 

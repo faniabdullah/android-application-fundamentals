@@ -11,8 +11,8 @@ import com.bangkit.faniabdullah_bfaa.data.local.UserDatabase
 class UserContentProvider : ContentProvider() {
 
     companion object {
-        const val AUTHORITY = "com.bangkit.faniabdullah_bfaa"
-        const val TABLE_NAME = "favorite_user"
+        private const val AUTHORITY = "com.bangkit.faniabdullah_bfaa"
+        private const val TABLE_NAME = "favorite_user"
         const val ID_FAVORITE_USER_DATA = 1
         val uriMatcher = UriMatcher(UriMatcher.NO_MATCH)
 
