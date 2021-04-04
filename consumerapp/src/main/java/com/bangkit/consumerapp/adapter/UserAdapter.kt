@@ -1,9 +1,11 @@
-package com.bangkit.consumerapp
+package com.bangkit.consumerapp.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bangkit.consumerapp.model.DataUser
+import com.bangkit.consumerapp.R
 import com.bangkit.consumerapp.databinding.LayoutUserBinding
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions

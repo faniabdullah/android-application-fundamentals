@@ -4,6 +4,9 @@ import android.app.Application
 import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.bangkit.consumerapp.model.DataUser
+import com.bangkit.consumerapp.utils.DatabaseContract
+import com.bangkit.consumerapp.utils.MappingHelper
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 

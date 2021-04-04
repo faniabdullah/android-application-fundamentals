@@ -1,4 +1,4 @@
-package com.bangkit.consumerapp
+package com.bangkit.consumerapp.utils
 
 import android.net.Uri
 import android.provider.BaseColumns

@@ -1,4 +1,4 @@
-package com.bangkit.consumerapp
+package com.bangkit.consumerapp.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

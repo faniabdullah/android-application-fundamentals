@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Consumer App</string>
+    <string name="notification_empyty_favorite">Oops… \n You doesn\'t have favorite users </string>
 </resources>

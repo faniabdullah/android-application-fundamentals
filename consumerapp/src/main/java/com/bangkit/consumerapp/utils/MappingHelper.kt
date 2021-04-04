@@ -1,6 +1,7 @@
-package com.bangkit.consumerapp
+package com.bangkit.consumerapp.utils
 
 import android.database.Cursor
+import com.bangkit.consumerapp.model.DataUser
 
 object MappingHelper {
     fun mapCursorToArrayList(cursor: Cursor?): ArrayList<DataUser> {
