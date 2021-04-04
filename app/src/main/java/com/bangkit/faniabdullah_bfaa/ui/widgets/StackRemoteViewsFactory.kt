@@ -1,6 +1,7 @@
 package com.bangkit.faniabdullah_bfaa.ui.widgets
 
 import android.content.Context
+import android.content.Intent
 import android.database.Cursor
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -68,6 +69,9 @@ class StackRemoteViewsFactory(private val mContext: Context) :
                 }
             }
         }
+
+        val fillInIntent = Intent()
+        views.setOnClickFillInIntent(R.id.userImageWidget, fillInIntent)
 
         return views
     }

@@ -11,6 +11,7 @@ import com.bangkit.faniabdullah_bfaa.data.local.UserDatabase
 import com.bangkit.faniabdullah_bfaa.data.network.RetrofitClient
 import com.bangkit.faniabdullah_bfaa.domain.model.User
 import com.bangkit.faniabdullah_bfaa.domain.model.UserResponse
+import com.bangkit.faniabdullah_bfaa.ui.widgets.UserFavoriteWidget
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,6 +24,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     private var userDao: FavoriteUserDao? = null
     private var userDB: UserDatabase?
+    private var mContext = application
 
     init {
         userDB = UserDatabase.getDatabase(application)
@@ -90,6 +92,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 true
             )
             userDao?.addToFavorite(user)
+            refrestWidget()
         }
     }
 
@@ -99,10 +102,15 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     fun removeFavoriteUser(id: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             userDao?.removeUserFavorites(id)
+            refrestWidget()
         }
     }
 
     fun checkStatusServer(): MutableLiveData<Boolean> {
         return isSuccess
+    }
+
+    private fun refrestWidget(){
+        UserFavoriteWidget.eventRefreshWidget(mContext)
     }
 }

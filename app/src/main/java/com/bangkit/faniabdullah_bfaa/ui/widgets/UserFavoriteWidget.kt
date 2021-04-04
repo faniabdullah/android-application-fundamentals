@@ -1,5 +1,6 @@
 package com.bangkit.faniabdullah_bfaa.ui.widgets
 
+import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
@@ -8,12 +9,11 @@ import android.content.Intent
 import android.widget.RemoteViews
 import androidx.core.net.toUri
 import com.bangkit.faniabdullah_bfaa.R
+import com.bangkit.faniabdullah_bfaa.ui.MainActivity
 
-/**
- * Implementation of App Widget functionality.
- */
 class UserFavoriteWidget : AppWidgetProvider() {
     companion object {
+
         private fun updateAppWidget(
             context: Context,
             appWidgetManager: AppWidgetManager,
@@ -26,9 +26,26 @@ class UserFavoriteWidget : AppWidgetProvider() {
             val views = RemoteViews(context.packageName, R.layout.user_favorite_widget)
             views.setRemoteAdapter(R.id.stack_view, intent)
             views.setEmptyView(R.id.stack_view, R.id.empty_view)
-            appWidgetManager.updateAppWidget(appWidgetId, views)
 
+            val toMainActivityIntent = Intent(context, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
+            val toMainPendingIntent = PendingIntent.getActivity(context,
+                0,
+                toMainActivityIntent,
+                0)
+            views.setPendingIntentTemplate(R.id.stack_view, toMainPendingIntent)
+
+            appWidgetManager.updateAppWidget(appWidgetId, views)
         }
+
+        fun eventRefreshWidget(context: Context) {
+            val intent = Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE).apply {
+                component = ComponentName(context, UserFavoriteWidget::class.java)
+            }
+            context.sendBroadcast(intent)
+        }
+
     }
 
     override fun onUpdate(
@@ -36,14 +53,13 @@ class UserFavoriteWidget : AppWidgetProvider() {
         appWidgetManager: AppWidgetManager,
         appWidgetIds: IntArray,
     ) {
-        // There may be multiple widgets active, so update all of them
+
         for (appWidgetId in appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId)
         }
     }
 
     override fun onReceive(context: Context?, intent: Intent?) {
-        super.onReceive(context, intent)
         intent?.let {
             if (it.action == AppWidgetManager.ACTION_APPWIDGET_UPDATE) {
                 val component = context?.let { context ->
