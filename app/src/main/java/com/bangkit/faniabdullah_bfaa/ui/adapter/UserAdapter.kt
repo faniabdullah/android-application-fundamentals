@@ -38,10 +38,10 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
                 onItemClickCallback.onItemClicked(user)
             }
             binding.includeUserButton.toogleFavorite.isChecked = user.isfavorite
-            val toogleButton = binding.includeUserButton.toogleFavorite
+            val toggleButton = binding.includeUserButton.toogleFavorite
             binding.includeUserButton.toogleFavorite.setOnClickListener {
                 onItemFavoriteClickCallback.onItemFavoriteClicked(user,
-                    toogleButton)
+                    toggleButton)
             }
             binding.apply {
                 Glide.with(itemView)
