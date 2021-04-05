@@ -23,13 +23,12 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     private var userDao: FavoriteUserDao? = null
     private var userDB: UserDatabase? = UserDatabase.getDatabase(application)
-    private var mContext = application
 
     init {
         userDao = userDB?.favoriteUserDao()
     }
 
-    val listUser = MutableLiveData<ArrayList<User>>()
+    private val listUser = MutableLiveData<ArrayList<User>>()
     val isSuccess = MutableLiveData<Boolean>()
 
     fun setSearchUsers(query: String) {

@@ -9,9 +9,9 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "favorite_user")
 data class FavoriteUser(
     @PrimaryKey
-    val id : Int,
-    val login : String,
-    val avatar_url : String,
+    val id: Int,
+    val login: String,
+    val avatar_url: String,
     val type: String,
-    var isfavorite : Boolean
-): Parcelable
+    var isfavorite: Boolean,
+) : Parcelable
