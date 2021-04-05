@@ -25,9 +25,9 @@ class FavoriteFragment : Fragment() {
     private lateinit var adapter: UserAdapter
 
     override fun onCreateView(
-      inflater: LayoutInflater,
-      container: ViewGroup?,
-      savedInstanceState: Bundle?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
     ): View {
         favoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
@@ -40,16 +40,16 @@ class FavoriteFragment : Fragment() {
         adapter = UserAdapter()
         adapter.notifyDataSetChanged()
         adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
-          override fun onItemClicked(data: User) {
-            showDetailUser(view, data)
-          }
+            override fun onItemClicked(data: User) {
+                showDetailUser(view, data)
+            }
         })
 
         adapter.setOnItemFavoriteClickCallback(object : UserAdapter.OnItemFavoriteClickCallback {
 
-          override fun onItemFavoriteClicked(data: User, stateToogle: ToggleButton) {
-            setToogleFavorite(data, stateToogle)
-          }
+            override fun onItemFavoriteClicked(data: User, stateToogle: ToggleButton) {
+                setToogleFavorite(data, stateToogle)
+            }
         })
 
         binding.apply {
@@ -61,22 +61,22 @@ class FavoriteFragment : Fragment() {
         favoriteViewModel = ViewModelProvider(this).get(FavoriteViewModel::class.java)
 
         favoriteViewModel.getFavoriteUser()?.observe(viewLifecycleOwner, {
-          if (it != null) {
-            val list = mapList(it)
-            if (list.size == 0) {
-              binding.emptyLayout.message.visibility = View.VISIBLE
-              binding.emptyLayout.message.text =
-                getString(R.string.notification_empyty_favorite)
-              binding.emptyLayout.pictureMsg.visibility = View.VISIBLE
-              binding.rvUser.visibility = View.GONE
-            } else {
-              binding.emptyLayout.message.visibility = View.GONE
-              binding.emptyLayout.pictureMsg.visibility = View.GONE
-              binding.rvUser.visibility = View.VISIBLE
-              adapter.setList(list)
+            if (it != null) {
+                val list = mapList(it)
+                if (list.size == 0) {
+                    binding.emptyLayout.message.visibility = View.VISIBLE
+                    binding.emptyLayout.message.text =
+                        getString(R.string.notification_empyty_favorite)
+                    binding.emptyLayout.pictureMsg.visibility = View.VISIBLE
+                    binding.rvUser.visibility = View.GONE
+                } else {
+                    binding.emptyLayout.message.visibility = View.GONE
+                    binding.emptyLayout.pictureMsg.visibility = View.GONE
+                    binding.rvUser.visibility = View.VISIBLE
+                    adapter.setList(list)
+                }
+                showLoading(false)
             }
-            showLoading(false)
-          }
         })
 
         showLoading(true)
@@ -87,11 +87,11 @@ class FavoriteFragment : Fragment() {
         val listUser = ArrayList<User>()
         for (user in users) {
             val userMapped = User(
-              user.login,
-              user.id,
-              user.avatar_url,
-              user.type,
-              true,
+                user.login,
+                user.id,
+                user.avatar_url,
+                user.type,
+                true,
             )
             listUser.add(userMapped)
         }
@@ -102,8 +102,8 @@ class FavoriteFragment : Fragment() {
         if (!stateToogle.isChecked) {
             favoriteViewModel.removeFavoriteUser(data.id)
             Snackbar.make(binding.root,
-              R.string.notification_delete_from_favorite,
-              Snackbar.LENGTH_LONG).show()
+                R.string.notification_delete_from_favorite,
+                Snackbar.LENGTH_LONG).show()
         } else {
             favoriteViewModel.removeFavoriteUser(data.id)
             Snackbar.make(binding.root, R.string.notification_add_to_favorite, Snackbar.LENGTH_LONG)
