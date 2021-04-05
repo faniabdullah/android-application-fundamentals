@@ -14,7 +14,7 @@ import com.bangkit.faniabdullah_bfaa.ui.detailuser.DetailUserActivity
 
 class RepositoriesFragment : Fragment() {
     private var _binding: FragmentRepositoriesBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding as FragmentRepositoriesBinding
     private lateinit var repoAdapter: RepositoriesAdapter
     private lateinit var username: String
     private lateinit var repositoriesViewModel: RepositoriesViewModel

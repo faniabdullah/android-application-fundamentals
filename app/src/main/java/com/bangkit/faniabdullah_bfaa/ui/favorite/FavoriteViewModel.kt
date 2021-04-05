@@ -14,10 +14,9 @@ import kotlinx.coroutines.launch
 class FavoriteViewModel(application: Application) : AndroidViewModel(application) {
 
     private var userDao: FavoriteUserDao? = null
-    private var userDB: UserDatabase?
+    private var userDB: UserDatabase? = UserDatabase.getDatabase(application)
 
     init {
-        userDB = UserDatabase.getDatabase(application)
         userDao = userDB?.favoriteUserDao()
     }
 

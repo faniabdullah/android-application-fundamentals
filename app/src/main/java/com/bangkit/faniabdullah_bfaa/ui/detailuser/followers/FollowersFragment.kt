@@ -49,7 +49,7 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
             UserAdapter.OnItemFavoriteClickCallback {
 
             override fun onItemFavoriteClicked(data: User, stateToogle: ToggleButton) {
-                setToogleFavorite(data, stateToogle)
+                setToggleFavorite(data, stateToogle)
             }
 
         })
@@ -97,7 +97,7 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
         }
     }
 
-    private fun setToogleFavorite(data: User, stateToogle: ToggleButton) {
+    private fun setToggleFavorite(data: User, stateToogle: ToggleButton) {
 
         if (!stateToogle.isChecked) {
             followersViewModel.removeFavoriteUser(data.id)

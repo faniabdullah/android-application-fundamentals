@@ -19,7 +19,7 @@ import com.google.android.material.snackbar.Snackbar
 class FavoriteFragment : Fragment() {
 
     private var _binding: FragmentFavoriteBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding as FragmentFavoriteBinding
     private lateinit var favoriteViewModel: FavoriteViewModel
 
     private lateinit var adapter: UserAdapter

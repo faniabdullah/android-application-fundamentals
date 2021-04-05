@@ -18,7 +18,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class FollowingFragment : Fragment() {
     private var _binding: FragmentFollowingBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding as FragmentFollowingBinding
     private lateinit var followingViewModel: FollowingViewModel
     private lateinit var userAdapter: UserAdapter
     private lateinit var username: String
@@ -56,7 +56,7 @@ class FollowingFragment : Fragment() {
             UserAdapter.OnItemFavoriteClickCallback {
 
             override fun onItemFavoriteClicked(data: User, stateToogle: ToggleButton) {
-                setToogleFavorite(data, stateToogle)
+                setToggleFavorite(data, stateToogle)
             }
         })
 
@@ -85,7 +85,7 @@ class FollowingFragment : Fragment() {
         showLoading(true)
     }
 
-    private fun setToogleFavorite(data: User, stateToogle: ToggleButton) {
+    private fun setToggleFavorite(data: User, stateToogle: ToggleButton) {
         if (!stateToogle.isChecked) {
             followingViewModel.removeFavoriteUser(data.id)
             Snackbar.make(binding.root,
